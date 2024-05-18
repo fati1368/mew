@@ -6,6 +6,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/search",
+    element: <h2>search</h2>,
+  },
+  {
     path: "*",
     element: <h1>not found</h1>,
   },
