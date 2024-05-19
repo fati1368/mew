@@ -1,0 +1,20 @@
+.container{
+    max-width: 1000px;
+    margin:0 auto;
+    padding:10px;
+}
+.flex{
+    display: flex;
+}
+.space-between{
+    justify-content: space-between;
+}
+.align-center{
+align-items: center;
+}
+body{
+    direction: ltr;
+}
+html{
+    font-size:10px;
+}
