@@ -1,12 +1,11 @@
-import { Fragment } from "react";
-import Header from "../../Components/Header"
+import Header from "../../Components/Header";
 import HeroSection from "../../Components/HeroSection";
+import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 
 export default function Home() {
   return (
-    <Fragment>
-      <Header></Header>
-      <HeroSection/>
-    </Fragment>
+    <PrimaryLayout>
+      <HeroSection />
+    </PrimaryLayout>
   );
 }
