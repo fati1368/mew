@@ -1,4 +1,6 @@
-
+.text{
+  color: black;
+}
 .movie-list {
     padding: 16px;
   }

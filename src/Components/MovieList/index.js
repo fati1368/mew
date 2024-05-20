@@ -1,5 +1,3 @@
-// MovieList.js
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -32,19 +30,20 @@ export default function MovieList() {
   }
 
   const renderMovies = () => {
-    return moviesData.map(({ id, name, poster_path }) => (
+    return moviesData.map(({ id, title, poster_path }) => (
       <Col key={id} xs={24} sm={12} md={8} lg={6}>
         <Link to={`/movie/${id}`}>
           <Card
             hoverable
+            style={{ width: 240 }}
             cover={
               <img
-                alt={name}
+                alt={title}
                 src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
               />
             }
           >
-            <Meta title={name} />
+            <Meta className="text" title={title} />
           </Card>
         </Link>
       </Col>
