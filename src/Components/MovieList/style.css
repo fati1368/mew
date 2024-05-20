@@ -1,0 +1,20 @@
+
+.movie-list {
+    padding: 16px;
+  }
+  
+  .ant-card {
+    border: none;
+    transition: transform 0.2s;
+  }
+  
+  .ant-card:hover {
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 768px) {
+    .ant-col {
+      flex: 0 0 100%;
+    }
+  }
+  
