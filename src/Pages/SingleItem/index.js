@@ -47,6 +47,7 @@ export default function SingleItem() {
         <h3>Please Waite</h3>
       ) : (
         <Fragment>
+          <h2>{id}</h2>
           <h3>Single Item</h3>
           <h2>cost:</h2>
           <h3>{`Status: ${data.status}`}</h3>

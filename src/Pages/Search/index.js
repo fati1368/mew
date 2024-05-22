@@ -24,10 +24,15 @@ export default function Search() {
       });
   }
   function renderResult() {
-    return data.map(({ name, id }) => {
+    return data.map(({ name, id, backdrop_path ,overview,media_type}) => {
       return (
         <li key={id}>
-          <Link to={`/movie/${id}`}>{name}</Link>
+          <Link to={`/movie/${id}`}>
+            <h3>{name}</h3>
+          <img src={backdrop_path}/>
+          <p>{overview}</p>
+          <h3>{media_type}</h3>
+          </Link>
         </li>
       );
     });
