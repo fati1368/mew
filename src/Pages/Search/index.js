@@ -1,37 +1,33 @@
 import { useEffect, useState } from "react";
-import PrimaryLayout from "../../Components/Layouts/PrimaryLayout";
+import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 import { useSearchParams, Link, createSearchParams } from "react-router-dom";
 import axios from "axios";
 
 export default function Search() {
   const [queryStrings, setQueryStrings] = useSearchParams();
-  const [data, setData] = useState({
-    data: [],
-    metaData: {},
-  });
+  const [data, setData] = useState([]);
   useEffect(function () {
     if (queryStrings.get("q") && queryStrings.get("q") === !"") getAPI();
   }, []);
   function getAPI(value) {
     axios
       .get(
-        `https://moviesapi.codingfront.dev/api/v1/movies?q=${
+        `https://api.themoviedb.org/3/search/multi?api_key=58c395f7f55c4dbbaf7934499b39a8a6&query=${
           value ? value : queryStrings.get("q")
-        }`
+        }&include_adult=false&language=en-US&page=1`
       )
       .then(function (res) {
-        console.log(res.data);
-        setData(res.data);
+        setData(res.data.results);
       })
       .catch(function (err) {
         console.log(err);
       });
   }
   function renderResult() {
-    return data.data.map(({ title, id }) => {
+    return data.map(({ name, id }) => {
       return (
         <li key={id}>
-          <Link to={`/movie/${id}`}>{title}</Link>
+          <Link to={`/movie/${id}`}>{name}</Link>
         </li>
       );
     });
@@ -54,4 +50,3 @@ export default function Search() {
     </PrimaryLayout>
   );
 }
-//delay dadan dar search ham barresi shavad
