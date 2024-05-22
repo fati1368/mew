@@ -1,9 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../Pages/Home";
+import SingleItem from "../Pages/SingleItem";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/movie/:id",
+    element: <SingleItem />,
   },
   {
     path: "/search",
