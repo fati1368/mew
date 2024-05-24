@@ -4,8 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { Card, Row, Col } from "antd";
 export default function MovieListByGenre({ headerDetail, genreId = "1" }) {
-  const { title, link } = headerDetail;
-  const [moviesData, setMoviesData] = useState({ data: [], metaData: {} });
+  const [moviesData, setMoviesData] = useState({});
   const [loading, setLoading] = useState(true);
   const { Meta } = Card;
   useEffect(
@@ -34,7 +33,7 @@ export default function MovieListByGenre({ headerDetail, genreId = "1" }) {
         <Col key={id} span={4}>
           <Link to={`/movie/${id}`}>
             <Card
-              title={title}
+              title={name}
               bordered={false}
               cover={
                 <img
@@ -47,7 +46,6 @@ export default function MovieListByGenre({ headerDetail, genreId = "1" }) {
             </Card>
           </Link>
         </Col>
-
       );
     });
   }

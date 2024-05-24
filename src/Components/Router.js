@@ -3,8 +3,7 @@ import Home from "../Pages/Home";
 import SingleItem from "../Pages/SingleItem";
 import Search from "../Pages/Search";
 import Filter from "../Pages/Filter";
-import MovieListByGenre from "./MovieListByGenre";
-
+import Genre from "../Pages/Genre";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,8 +22,8 @@ const router = createBrowserRouter([
     element: <Filter />,
   },
   {
-    path: "/genre",
-    element: <MovieListByGenre />,
+    path: "/genre/:id",
+    element: <Genre />,
   },
   {
     path: "*",

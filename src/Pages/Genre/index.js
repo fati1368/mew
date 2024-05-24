@@ -2,27 +2,34 @@ import { Link, useParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "antd";
-import { useSearchParams,createSearchParams,useNavigate } from "react-router-dom";
+import {
+  useSearchParams,
+  createSearchParams,
+  useNavigate,
+} from "react-router-dom";
 
 export default function Genre() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const [moviesData, setMoviesData] = useState({ data: [], metadata: {} });
-  const [searchParams ,setSearchParams] =useSearchParams();
-  const navigate= useNavigate()
-  useEffect(function () {
-    getAPI(searchParams.get("page") ? searchParams.get("page") : 1);
-  }, [searchParams.get("page")]);
+  const [moviesData, setMoviesData] = useState({ results: [] });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  useEffect(
+    function () {
+      getAPI(searchParams.get("page") ? searchParams.get("page") : 1);
+    },
+    [searchParams.get("page")]
+  );
 
   function getAPI(page = 1) {
     axios
-    //  .get(`https://moviesapi.codingfront.dev/api/v1/genres/${id}/movies?page=${page}`)
-      .get(`https://moviesapi.codingfront.dev/api/v1/genres/${id}/movies` , {params:{page:page}})
+      .get(
+        `https://api.themoviedb.org/3/discover/movie?api_key=58c395f7f55c4dbbaf7934499b39a8a6&include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_genres=${id}`,
+        { params: { page: page } }
+      )
 
       .then(function (res) {
         setMoviesData(res.data);
-        console.log(res.data);
-        console.log(res.data.metadata)
         setLoading(false);
       })
       .catch(function (err) {
@@ -30,12 +37,13 @@ export default function Genre() {
       });
   }
   function renderFarm() {
-    return moviesData.data.map(({ title, poster, id }) => {
+    return moviesData.results.map(({ name, poster_path, id, overview }) => {
       return (
         <li key={id}>
           <Link to={`/movie/${id}`}>
-            <img src={poster} />
-            <h3>{title === undefined ? "" : title} </h3>
+            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
+            <h3>{name === undefined ? "" : name} </h3>
+            <p>{overview}</p>
           </Link>
         </li>
       );
@@ -47,7 +55,7 @@ export default function Genre() {
     }
     return (
       <div className="movie-list">
-        {moviesData.data.length === 0 ? (
+        {moviesData.results.length === 0 ? (
           <h1>empty data ....</h1>
         ) : (
           <div className="list">
@@ -57,26 +65,19 @@ export default function Genre() {
       </div>
     );
   }
-  function onPageChange(page, pageSize){
-console.log(page, pageSize)
-navigate(`/genre/${id}?page=${page}`)
-// setSearchParams(createSearchParams({page:page}))
-// getAPI(page)
+  function onPageChange(page) {
+    navigate(`/genre/${id}?page=${page}`);
   }
   return (
     <Fragment>
       {render()}
       <div>
-      <Pagination
-        onChange={onPageChange}
-          current={moviesData.metadata.current_page}
-          total={moviesData.metadata.total_count}
-          pageSize={moviesData.metadata.per_page}
+        <Pagination
+          onChange={onPageChange}
+          current={moviesData.page}
+          total={moviesData.total_pages}
         />
-        
       </div>
     </Fragment>
   );
 }
-//npm i antd
-//infinite scroll 
