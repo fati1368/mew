@@ -2,10 +2,12 @@ import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
+import SRCimg from "../../Helpers/SRCimg";
+
 
 export default function SingleItem() {
   const { id } = useParams();
-  const [data, setData] = useState({ });
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     getAPI();
@@ -32,13 +34,15 @@ export default function SingleItem() {
     return `${hours}h ${minutes}m`;
   }
   function formatNumberToAccounting() {
-    if (typeof data.revenue !== 'number') {
-      return 'Invalid input';
+    if (typeof data.revenue !== "number") {
+      return "Invalid input";
     }
-    const numString = data.revenue.toString();  
-    const [integerPart, decimalPart] = numString.split('.');
-    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    const formattedNumber = decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+    const numString = data.revenue.toString();
+    const [integerPart, decimalPart] = numString.split(".");
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const formattedNumber = decimalPart
+      ? `${formattedInteger}.${decimalPart}`
+      : formattedInteger;
     return formattedNumber;
   }
   return (
@@ -57,9 +61,9 @@ export default function SingleItem() {
           <h3>{convertMinutesToHoursAndMinutes()}</h3>
           <h1>{data.overview}</h1>
           <br />
-          <img src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`} />
+          <img src={`${SRCimg}${data.poster_path}`} />
           <br />
-          <img src={`https://image.tmdb.org/t/p/w500/${data.backdrop_path}`} />
+          <img src={`${SRCimg}${data.backdrop_path}`} />
           <br />
         </Fragment>
       )}

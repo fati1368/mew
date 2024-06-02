@@ -10,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
   a{
     text-decoration: none;
     color: ${palette.fontColor};
-
   }
   ul,
   li {
@@ -31,15 +30,38 @@ const GlobalStyle = createGlobalStyle`
     padding: 0 10px;
   }
 
-.flex{
+  .flex{
     display: flex;
-}
-.space-between{
+  }
+  .space-between{
     justify-content: space-between;
-}
-.align-center{
-align-items: center;
-}
-
+  }
+  .align-center{
+    align-items: center;
+  }
+  .relative{
+    position: relative;
+  }
+  .absolute{
+    position: absolute;
+  }
+  h1{
+    font-size:5rem;
+  }
+  h2{
+    font-size:4rem;
+  }
+  h3{
+    font-size:3rem;
+  }
+  h4{
+    font-size:2rem;
+  }
+  h5{
+    font-size:1rem;
+  }
+  p{
+    font-size:1.3rem;
+  }
   `;
 export default GlobalStyle;
