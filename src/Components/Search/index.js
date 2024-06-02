@@ -3,23 +3,27 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import IConSearch from "../../Animation&Icon/Search";
 import Style from "./style";
+import KeyAPI from "../../Helpers/KeyAPI";
+import API from "../../Helpers/API";
 export default function Search() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState(true);
   function handleSearch(e) {
     const query = e.target.value.trim();
     if (query.length >= 3) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/multi?api_key=58c395f7f55c4dbbaf7934499b39a8a6&query=${query}&include_adult=false&language=en-US&page=1`
-        )
+      API.get(
+        `search/multi?${KeyAPI}&query=${query}&include_adult=false&language=en-US&page=1`
+      )
         .then((res) => {
           setData(res.data.results);
           setShowResults(true);
+          setLoading(false);
         })
         .catch((err) => {
-          alert("API doesn't response");
+          alert("server doesn't response Please Check your Connection");
+          setLoading(false);
         });
     } else {
       setData([]);
@@ -27,6 +31,9 @@ export default function Search() {
     }
   }
   function renderResult() {
+    if (loading === true) {
+      return <p>Please waite</p>;
+    }
     return data.map(({ name, id }) => {
       return (
         <li key={id}>
