@@ -1,11 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import Routers from './Components/Router';
-import 'normalize.css';
-import "./style.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Routers from "./Components/Router";
+import "normalize.css";
+import { ConfigProvider } from "antd";
+import GlobalStyle from "./Style/GlobelStyle";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-<Routers />
+    <ConfigProvider>
+      <GlobalStyle />
+      <Routers />
+    </ConfigProvider>
 );
-
