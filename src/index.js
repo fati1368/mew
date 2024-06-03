@@ -7,8 +7,8 @@ import GlobalStyle from "./Style/GlobelStyle";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <ConfigProvider>
-      <GlobalStyle />
-      <Routers />
-    </ConfigProvider>
+  <ConfigProvider>
+    <GlobalStyle />
+    <Routers />
+  </ConfigProvider>
 );

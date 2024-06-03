@@ -7,8 +7,8 @@ import LOGO from "../../Helpers/LOGO";
 export default function Header() {
   return (
     <Style>
-      <header className="header">
-        <div className="container flex space-between align-center">
+      <header className="header relative ">
+        <div className="container flex space-between align-center fixed">
           <div className="logo-search flex align-center">
             <Link to="/">
               <img className="logo" alt="logo" src={LOGO} />
@@ -17,7 +17,7 @@ export default function Header() {
           </div>
           <MenuHeader menuItems={menuData} />
         </div>
-      </header>
+     </header>
     </Style>
   );
 }

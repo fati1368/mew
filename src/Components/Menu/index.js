@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Dropdown } from "antd";
 import { Link } from "react-router-dom";
-import "./style.css";
+import Style from "./style";
 
 const renderSubMenu = (subMenus) => (
   <Menu>
@@ -15,7 +15,7 @@ const renderSubMenu = (subMenus) => (
 
 export default function MenuHeader({ menuItems }) {
   return (
-    <div>
+    <Style>
       {menuItems.map(({ id, title, subMenus }) => (
         <Dropdown key={id} overlay={renderSubMenu(subMenus)}>
           <Link className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
@@ -23,6 +23,6 @@ export default function MenuHeader({ menuItems }) {
           </Link>
         </Dropdown>
       ))}
-    </div>
+    </Style>
   );
 }

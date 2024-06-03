@@ -1,27 +1,15 @@
 import styled from "styled-components";
-import palette from "../../Style/Theme";
 const Style = styled.div`
-
-  .list {
-    &:after {
-      content: "";
-    }
-    display:flex ul {
-      &:hover {
-        color: "red";
-      }
-      font-size: 15px li {
-        a {
-          display:block span {
-
-          }
-        }
-      }
-    }
-  }
   img {
     width: 100px;
   }
-
+  .fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    // background-color: #0e0e0e7a;
+  }
 `;
 export default Style;
