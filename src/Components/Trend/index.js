@@ -1,26 +1,27 @@
-import { Space, Switch } from "antd";
 import { useEffect, useState } from "react";
 import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
 import AlertError from "../../Helpers/AlertError";
-import SRCimg from "../../Helpers/SRCimg";
-import { Link } from "react-router-dom";
 import Style from "./style";
-import { Rate } from "antd";
-import convertToStars from "../../Helpers/convertToStars";
-import ConvertGenreIdsToNames from "../../Helpers/convertGenreIdsToNames";
-export default function Trend({ time = "day" }) {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const starRating = convertToStars(data.vote_average);
+import Card from "../Layout/Card";
+import { palette } from "../../Style/Theme";
+import { Radio, Select } from "antd";
 
+export default function Trend() {
+  const [data, setData] = useState([]);
+  const [placement, SetPlacement] = useState("day");
+  const [loading, setLoading] = useState(true);
+  const placementChange = (e) => {
+    SetPlacement(e.target.value);
+  };
   useEffect(
     function () {
       getAPI();
     },
-    [time]
+    [placement]
   );
   function getAPI() {
+    const time= placement === "day" ? "day" : "week";
     API.get(`trending/all/${time}?${KeyAPI}`)
       .then((res) => {
         setData(res.data.results.slice(0, 6));
@@ -32,68 +33,26 @@ export default function Trend({ time = "day" }) {
       });
   }
 
-  const renderFarm = () => {
-    return data.map(
-      ({ id, name, title, poster_path, media_type, release_date, genre_ids }) => (
-        <Link key={id} to={`/movie/${id}`}>
-          <li className="col ">
-            <div className=" containerCard  ">
-              <div
-                className="front "
-                style={{ backgroundImage: `url(${SRCimg}${poster_path})` }}
-              >
-                <div className="inner">
-                  <p>
-                    {name}
-                    {title}
-                  </p>
-                </div>
-              </div>
-              <div className="back ">
-                <div className="inner ">
-                  <div>
-                    <h4>
-                      {name}
-                      {title}
-                    </h4>
-                    <p>Media Type:{media_type}</p>
-                    <p>Release Date:{release_date}</p>
-                    <Rate allowHalf Value={`${starRating}`} />
-                    <ConvertGenreIdsToNames movie={{genreIds:{genre_ids} , mediaType:`${media_type}`}}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          {/* <li className="col-4">
-          <img alt={title} src={`${SRCimg}${poster_path}`} />
-          <div className="title">
-            <h4>
-              {name}
-              {title}
-            </h4>
-          </div>
-        </li> */}
-        </Link>
-      )
-    );
-  };
-
   return (
     <section className="trend ">
       <Style>
         <div className=" bg section-space relative">
-          <div className=" relative">
-            <h2>Trending</h2>
-            <Space direction="vertical">
-              <Switch
-                checkedChildren="day"
-                unCheckedChildren="week"
-                defaultChecked
-              />
-            </Space>
-            <ul className="flex justify-center">{renderFarm()}</ul>
+          <div className="container relative">
+            <div className="sectionTitle pb-5">
+              <h2 style={{ color: `${palette.fontColorSection}` }}>
+                Trending
+              </h2>
+              <h4>
+                MOST Trending MOVIES & Series RIGHT NOW:
+                <br />
+                WHAT TO WATCH IN THEATERS AND STREAMING
+              </h4>
+            </div>
+            <Radio.Group className="mb-3" value={placement} onChange={placementChange}>
+              <Radio.Button value="day" >Today</Radio.Button>
+              <Radio.Button value="week">This week</Radio.Button>
+            </Radio.Group>
+            <Card dataAPI={data} />
           </div>
         </div>
       </Style>

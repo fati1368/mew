@@ -68,7 +68,7 @@ const GlobalStyle = createGlobalStyle`
     font-size:3rem;
   }
   h4{
-    font-size:1.5rem;
+    font-size:2rem;
   }
   h5{
     font-size:1rem;
@@ -168,6 +168,15 @@ const GlobalStyle = createGlobalStyle`
   }
   .section-space {
     padding: 15rem 0;
+  }
+  .sectionTitle{
+    text-align:center;
+    line-height: 1.5;
+    text-transform: lowercase;
+    h2{
+      font-size:8em;
+      text-transform: uppercase;
+    }
   }
   `;
 export default GlobalStyle;

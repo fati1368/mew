@@ -5,7 +5,6 @@ import KeyAPI from "../Helpers/KeyAPI";
 
 export default function ConvertGenreIdsToNames({ movie }) {
   const { genreIds, mediaType } = movie;
-  console.log(movie);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -34,5 +33,10 @@ export default function ConvertGenreIdsToNames({ movie }) {
     });
   }
 
-  return <ul>{genreNames()}</ul>;
+  return (
+    <div className="genre">
+      <p className="title">Genre:</p>
+      <ul>{genreNames()}</ul>
+    </div>
+  );
 }
