@@ -5,6 +5,8 @@ import IConSearch from "../../Animation&Icon/Search";
 import Style from "./style";
 import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
+import AlertError from "../../Helpers/AlertError";
+
 export default function Search() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -22,7 +24,7 @@ export default function Search() {
           setLoading(false);
         })
         .catch((err) => {
-          alert("server doesn't response Please Check your Connection");
+          <AlertError />
           setLoading(false);
         });
     } else {

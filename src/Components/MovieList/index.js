@@ -19,7 +19,7 @@ export default function MovieList() {
         "https://api.themoviedb.org/3/discover/movie?api_key=58c395f7f55c4dbbaf7934499b39a8a6"
       )
       .then((res) => {
-        setMoviesData(res.data.results.slice(0, 8));
+        setMoviesData(res.data.results.slice(0, 6));
         setLoading(false);
       })
 

@@ -45,7 +45,7 @@ const Style = styled.div`
     top: 100%;
     right: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 4;
     max-height: 250px;
     background-color: ${palette.secondaryColor};
     padding: 1em;

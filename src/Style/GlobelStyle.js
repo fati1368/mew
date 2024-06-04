@@ -40,6 +40,16 @@ const GlobalStyle = createGlobalStyle`
   .align-center{
     align-items: center;
   }
+  .justify-center {
+    justify-content: center;
+  }
+  .text-align-center {
+    text-align: center;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .relative{
     position: relative;
   }
@@ -58,7 +68,7 @@ const GlobalStyle = createGlobalStyle`
     font-size:3rem;
   }
   h4{
-    font-size:2rem;
+    font-size:1.5rem;
   }
   h5{
     font-size:1rem;
@@ -152,6 +162,12 @@ const GlobalStyle = createGlobalStyle`
   }
   .mb-3 {
     margin-bottom: 25px;
+  }
+  [class^="col-"] {
+    padding: 15px;
+  }
+  .section-space {
+    padding: 15rem 0;
   }
   `;
 export default GlobalStyle;

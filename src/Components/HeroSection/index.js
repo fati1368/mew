@@ -29,8 +29,8 @@ export default function HeroSection() {
           Series
         </Button>
       </div>
-      <div className="hero-container flex space-between ">
-        <div col-6></div>
+        <div className="hero-container flex space-between ">
+        <div className="col-6"></div>
         <video autoPlay loop muted className="hero-video col-6 ">
           <source src={movieBackgroundUrl} type="video/mp4" />
         </video>
