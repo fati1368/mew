@@ -6,10 +6,14 @@ import AlertError from "../../Helpers/AlertError";
 import SRCimg from "../../Helpers/SRCimg";
 import { Link } from "react-router-dom";
 import Style from "./style";
-
+import { Rate } from "antd";
+import convertToStars from "../../Helpers/convertToStars";
+import ConvertGenreIdsToNames from "../../Helpers/convertGenreIdsToNames";
 export default function Trend({ time = "day" }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const starRating = convertToStars(data.vote_average);
+
   useEffect(
     function () {
       getAPI();
@@ -29,29 +33,40 @@ export default function Trend({ time = "day" }) {
   }
 
   const renderFarm = () => {
-    return data.map(({ id, name, title, poster_path }) => (
-      <Link key={id} to={`/movie/${id}`}>
-        <li className="col " >
-          <div className=" containerCard  ">
-            <div
-              className="front "
-              style={{backgroundImage:`url(${SRCimg}${poster_path})`}}
-            >
-              <div className="inner">
-                <p>{name}{title}</p>
+    return data.map(
+      ({ id, name, title, poster_path, media_type, release_date, genre_ids }) => (
+        <Link key={id} to={`/movie/${id}`}>
+          <li className="col ">
+            <div className=" containerCard  ">
+              <div
+                className="front "
+                style={{ backgroundImage: `url(${SRCimg}${poster_path})` }}
+              >
+                <div className="inner">
+                  <p>
+                    {name}
+                    {title}
+                  </p>
+                </div>
+              </div>
+              <div className="back ">
+                <div className="inner ">
+                  <div>
+                    <h4>
+                      {name}
+                      {title}
+                    </h4>
+                    <p>Media Type:{media_type}</p>
+                    <p>Release Date:{release_date}</p>
+                    <Rate allowHalf Value={`${starRating}`} />
+                    <ConvertGenreIdsToNames movie={{genreIds:{genre_ids} , mediaType:`${media_type}`}}/>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="back ">
-              <div className="inner ">
-                <p>
-                  The Burj Khal
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
+          </li>
 
-        {/* <li className="col-4">
+          {/* <li className="col-4">
           <img alt={title} src={`${SRCimg}${poster_path}`} />
           <div className="title">
             <h4>
@@ -60,8 +75,9 @@ export default function Trend({ time = "day" }) {
             </h4>
           </div>
         </li> */}
-      </Link>
-    ));
+        </Link>
+      )
+    );
   };
 
   return (

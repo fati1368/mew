@@ -43,16 +43,19 @@ const Style = styled.div`
       transform-style: preserve-3d;
       &::after {
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
         z-index: 1;
         width: 100%;
         height: 100%;
         content: "";
         border-radius: 10px;
-        display: block;
-        opacity: 0.6;
-        background-color: #000;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 1) 0,
+          rgba(0, 0, 0, 0.5) 20%,
+          rgba(131, 58, 180, 0) 100%
+        );
         backface-visibility: hidden;
       }
       .inner p {
@@ -74,8 +77,8 @@ const Style = styled.div`
     .back {
       transform: rotateY(180deg);
       transform-style: preserve-3d;
-      background: #cedce7;
-      background: linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+      background:url(./assets/Image/bgcard.png) #494545;
+     background-size:contain;
       position: absolute;
       top: 0;
       left: 0;
@@ -132,7 +135,5 @@ const Style = styled.div`
   //         padding: 0 30px;
   //     }
   //     }
-
-
 `;
 export default Style;
