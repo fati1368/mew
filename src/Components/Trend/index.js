@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../Layout/Card";
 import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
-import AlertError from "../../Helpers/AlertError";
+import alertError from "../../Helpers/AlertError";
 import SectionTitle from "../SectionTitle";
 import { APIrequest } from "../../Data/APIrequest";
 import { palette } from "../../Style/Theme";
@@ -29,7 +29,7 @@ export default function Trend() {
         setLoading(false);
       })
       .catch((err) => {
-        <AlertError />;
+        alertError();
         setLoading(false);
       });
   }
@@ -43,7 +43,7 @@ export default function Trend() {
         filterBottom={APIrequest.trend}
         callBack={handlePlacement}
       />
-      <Card dataAPI={data} />
+      <Card dataAPI={data} mediaType="" />
     </section>
   );
 }

@@ -7,23 +7,21 @@ import SectionTitle from "../SectionTitle";
 import { APIrequest } from "../../Data/APIrequest";
 import { palette } from "../../Style/Theme";
 
-export default function Popular() {
+export default function OnAirAiringToday() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [placement, SetPlacement] = useState("movie");
+  const [placement, SetPlacement] = useState("airing_today");
   const handlePlacement = (selectedPlacement) => {
     SetPlacement(selectedPlacement);
   };
-
   useEffect(
     function () {
       getAPI();
     },
     [placement]
   );
-
   function getAPI() {
-    API.get(`${placement}/popular?${KeyAPI}`)
+    API.get(`tv/${placement}?${KeyAPI}`)
       .then((res) => {
         setData(res.data.results.slice(0, 6));
         setLoading(false);
@@ -33,18 +31,18 @@ export default function Popular() {
         setLoading(false);
       });
   }
-  const currentProb = placement === "movie" ? "movie" : "tv";
+
   return (
-    <section className="Popular ">
+    <section className="TV ">
       <SectionTitle
-        title="What's Popular"
-        colorTitle={palette.fontColor}
-        subTitleOne="Discover the latest Popular"
-        subTitleTwo="Movies and Series"
-        filterBottom={APIrequest.Common}
+        title="TV Series"
+        colorTitle={palette.fontColorSection}
+        subTitleOne="MOST Trending MOVIES & Series RIGHT NOW:a"
+        subTitleTwo="WHAT TO WATCH IN THEATERS AND STREAMING"
+        filterBottom={APIrequest.tv}
         callBack={handlePlacement}
       />
-      <Card dataAPI={data} mediaType={currentProb} />
+      <Card dataAPI={data} mediaType="tv" />
     </section>
   );
 }

@@ -11,21 +11,40 @@ export const APIrequest = {
       Name: "This week",
     },
   ],
-  Popular: [
+  Common: [
     {
       id: "1",
-      value: "person",
-      Name: "People",
-    },
-    {
-      id: "2",
       value: "movie",
       Name: "Movie",
     },
     {
-      id: "3",
+      id: "2",
       value: "tv",
       Name: "TV",
+    },
+  ],
+  movie: [
+    {
+      id: "1",
+      value: "now_playing",
+      Name: "Now Playing",
+    },
+    {
+      id: "2",
+      value: "upcoming",
+      Name: "Upcoming",
+    },
+  ],
+  tv: [
+    {
+      id: "1",
+      value: "airing_today",
+      Name: "Airing Today ",
+    },
+    {
+      id: "2",
+      value: "on_the_air",
+      Name: "On The Air",
     },
   ],
 };

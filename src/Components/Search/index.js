@@ -5,7 +5,7 @@ import IConSearch from "../../Animation&Icon/Search";
 import Style from "./style";
 import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
-import AlertError from "../../Helpers/AlertError";
+import alertError from "../../Helpers/AlertError";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function Search() {
           setLoading(false);
         })
         .catch((err) => {
-          <AlertError />
+          alertError();
           setLoading(false);
         });
     } else {

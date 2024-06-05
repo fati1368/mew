@@ -4,9 +4,10 @@ import ConvertGenreIdsToNames from "../../../Helpers/convertGenreIdsToNames";
 import { Rate } from "antd";
 import SRCimg from "../../../Helpers/SRCimg";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function Card({dataAPI}) {
-  const renderFarm = () => {
+export default function Card({ dataAPI, mediaType }) {
+  function renderFarm() {
     return dataAPI.map(
       ({
         id,
@@ -19,6 +20,7 @@ export default function Card({dataAPI}) {
         first_air_date,
         vote_average,
       }) => {
+        const currentData= mediaType === "" ?  media_type : mediaType
         const starRating = convertToStars({ vote_average });
         return (
           <Link key={id} to={`/movie/${id}`}>
@@ -29,23 +31,23 @@ export default function Card({dataAPI}) {
                   style={{ backgroundImage: `url(${SRCimg}${poster_path})` }}
                 >
                   <div className="inner">
-                    <p>{media_type === "movie" ? title : name}</p>
+                    <p>{currentData === "movie" ? title : name}</p>
                   </div>
                 </div>
                 <div className="back ">
                   <div className="inner  ">
                     <div className="info ">
-                      <h4>{media_type === "movie" ? title : name}</h4>
+                      <h4>{currentData === "movie" ? title : name}</h4>
                       <p className="title">Media Type:</p>
-                      <p> {media_type}</p>
+                      <p> {currentData}</p>
                       <p className="title">Release Date:</p>
                       <p>
-                        {media_type === "movie" ? release_date : first_air_date}
+                        {currentData === "movie" ? release_date : first_air_date}
                       </p>
                       <ConvertGenreIdsToNames
                         movie={{
                           genreIds: { genre_ids },
-                          mediaType: `${media_type}`,
+                          mediaType: `${currentData}`,
                         }}
                       />
                       <Rate
@@ -63,12 +65,11 @@ export default function Card({dataAPI}) {
         );
       }
     );
-  };
+  }
 
   return (
     <Style>
       <ul className="flex justify-center">{renderFarm()}</ul>
     </Style>
   );
-
 }
