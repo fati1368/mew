@@ -6,7 +6,6 @@ import SRCimg from "../../../Helpers/SRCimg";
 import { Link } from "react-router-dom";
 
 export default function Card({dataAPI}) {
-  console.log(dataAPI);
   const renderFarm = () => {
     return dataAPI.map(
       ({
@@ -21,8 +20,6 @@ export default function Card({dataAPI}) {
         vote_average,
       }) => {
         const starRating = convertToStars({ vote_average });
-        console.log(starRating);
-
         return (
           <Link key={id} to={`/movie/${id}`}>
             <li className="col ">

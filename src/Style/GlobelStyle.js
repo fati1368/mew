@@ -166,17 +166,6 @@ const GlobalStyle = createGlobalStyle`
   [class^="col-"] {
     padding: 15px;
   }
-  .section-space {
-    padding: 15rem 0;
-  }
-  .sectionTitle{
-    text-align:center;
-    line-height: 1.5;
-    text-transform: lowercase;
-    h2{
-      font-size:8em;
-      text-transform: uppercase;
-    }
-  }
+
   `;
 export default GlobalStyle;

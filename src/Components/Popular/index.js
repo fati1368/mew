@@ -7,10 +7,10 @@ import SectionTitle from "../SectionTitle";
 import { APIrequest } from "../../Data/APIrequest";
 import { palette } from "../../Style/Theme";
 
-export default function Trend() {
+export default function Popular() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [placement, SetPlacement] = useState("");
+  const [placement, SetPlacement] = useState("person");
   const handlePlacement = (selectedPlacement) => {
     SetPlacement(selectedPlacement);
   };
@@ -22,10 +22,13 @@ export default function Trend() {
     [placement]
   );
   function getAPI() {
-    const time = placement === "day" ? "day" : "week";
-    API.get(`trending/all/${time}?${KeyAPI}`)
+    API.get(`${placement}/popular?${KeyAPI}`)
       .then((res) => {
-        setData(res.data.results.slice(0, 6));
+        const resCorrect =
+          placement === "person"
+            ? res.data.results[5].known_for
+            : res.data.results.slice(0, 6);
+        setData(resCorrect);
         setLoading(false);
       })
       .catch((err) => {
@@ -36,11 +39,11 @@ export default function Trend() {
   return (
     <section className="trend ">
       <SectionTitle
-        title="Trending"
-        colorTitle={palette.fontColorSection}
-        subTitleOne="MOST Trending MOVIES & Series RIGHT NOW:a"
-        subTitleTwo="WHAT TO WATCH IN THEATERS AND STREAMING"
-        filterBottom={APIrequest.trend}
+        title="What's Popular"
+        colorTitle={palette.fontColor}
+        subTitleOne="Discover the latest Popular"
+        subTitleTwo="Movies and Series"
+        filterBottom={APIrequest.Popular}
         callBack={handlePlacement}
       />
       <Card dataAPI={data} />

@@ -1,5 +1,4 @@
 export default function convertToStars(rating) {
-  console.log(rating);
   if (rating.vote_average < 0 || rating.vote_average > 10) {
     return alert("invalid");
   }
