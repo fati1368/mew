@@ -54,8 +54,8 @@ export default function Search() {
   return (
     <Style>
       <div className="relative">
-        <div className={`relative searchInput ${showResults ? "active" : ""}`}>
-          <Link className="absolute iconSearch" to={`/search`}>
+        <div className={` searchInput flex space-between align-center ${showResults ? "active" : ""}`}>
+          <Link className=" iconSearch" to={`/search`}>
             <IConSearch />
           </Link>
           <input

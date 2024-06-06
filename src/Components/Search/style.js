@@ -7,26 +7,21 @@ const Style = styled.div`
       display: block;
       opacity: 1;
     }
-    &:hover .iconSearch {
+    &:hover  {
       right: -200px;
       bottom: 0;
     }
     &.active input {
       visibility: visible;
-      display: block;
+      display: flex;
       opacity: 1;
     }
-    &.active .iconSearch{
+    &.active {
       right: -200px;
       bottom: 0;
     }
-    .iconSearch {
-      width: 100%;
-      height: 100%;
-      right: 0;
-      bottom: 20px;
+    .iconSearch 
       cursor: pointer;
-      z-index: 1;
     }
     input {
       font-family: ${type.mainFont};
@@ -44,17 +39,18 @@ const Style = styled.div`
   .search-box {
     top: 100%;
     right: 0;
-    width: 100%;
-    z-index: 4;
+    width: 90%;
+    z-index: 10;
     max-height: 250px;
     background-color: ${palette.secondaryColor};
     padding: 1em;
     line-height: 2;
     border-radius: 10px;
-    overflow-y: auto; 
+    overflow-y: auto;
     p {
       color: ${palette.primaryColor};
     }
   }
+  
 `;
 export default Style;

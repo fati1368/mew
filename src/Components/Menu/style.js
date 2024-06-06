@@ -5,5 +5,9 @@ const Style = styled.div`
     font-size: 1.8rem;
     padding: 0 1.5em;
   }
+  .menu.scrolled {
+    visible: hide;
+    opacity:0;
+  }
 `;
 export default Style;

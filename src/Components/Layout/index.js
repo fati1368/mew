@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
-    
     const handleScroll = () => {
       if (window.scrollY > 550) {
         setIsScrolled(true);
@@ -30,12 +29,20 @@ export default function Header() {
           }`}
         >
           <div className="left flex align-center">
-            <Link to="/">
-              <img alt="logo" src={LOGO} />
-            </Link>
-            <Search />
+            <div>
+              {" "}
+              <Link to="/">
+                <img alt="logo" src={LOGO} />
+              </Link>
+            </div>
+            <div>
+              <Search />
+            </div>
+            <div>salam</div>
           </div>
+          <div className="right">
             <MenuHeader menuItems={menuData} />
+          </div>
         </div>
       </header>
     </Style>
