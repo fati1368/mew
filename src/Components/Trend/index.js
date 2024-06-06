@@ -10,7 +10,7 @@ import { palette } from "../../Style/Theme";
 export default function Trend() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [placement, SetPlacement] = useState("");
+  const [placement, SetPlacement] = useState("day");
   const handlePlacement = (selectedPlacement) => {
     SetPlacement(selectedPlacement);
   };
@@ -22,8 +22,7 @@ export default function Trend() {
     [placement]
   );
   function getAPI() {
-    const time = placement === "day" ? "day" : "week";
-    API.get(`trending/all/${time}?${KeyAPI}`)
+    API.get(`trending/all/${placement}?${KeyAPI}`)
       .then((res) => {
         setData(res.data.results.slice(0, 6));
         setLoading(false);

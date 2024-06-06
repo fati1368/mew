@@ -166,6 +166,5 @@ const GlobalStyle = createGlobalStyle`
   [class^="col-"] {
     padding: 15px;
   }
-
   `;
 export default GlobalStyle;
