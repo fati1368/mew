@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import IConSearch from "../../Animation&Icon/Search";
@@ -7,7 +7,7 @@ import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
 import alertError from "../../Helpers/AlertError";
 
-export default function Search() {
+export default function Search({callBack}) {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -15,6 +15,7 @@ export default function Search() {
   function handleSearch(e) {
     const query = e.target.value.trim();
     if (query.length >= 3) {
+      callBack(query)
       API.get(
         `search/multi?${KeyAPI}&query=${query}&include_adult=false&language=en-US&page=1`
       )
