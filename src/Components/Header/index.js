@@ -34,7 +34,7 @@ export default function Header() {
           }
           ${callBack ? "minHeight" : ""}`}
         >
-          <div className="left flex align-center">
+          <div className=" flex align-center">
             <Link to="/">
               <img alt="logo" src={LOGO} />
             </Link>

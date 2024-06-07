@@ -74,22 +74,69 @@ export const menuData = [
     ],
   },
 ];
-export const footerMenu = {
-  data: [
-    {
-      title: "THE BASICS",
-      link: "/",
-      id: 1,
-    },
-    {
-      title: "Contact Info",
-      link: "/",
-      id: 2,
-    },
-    {
-      title: "Support",
-      link: "/",
-      id: 3,
-    },
-  ],
-};
+export const footerData = [
+  {
+    title: "Movie ",
+    id: 1,
+    subMenus: [
+      {
+        key: "1",
+        label: "Popular",
+        link: "/",
+      },
+      {
+        key: "2",
+        label: "Now Playing",
+        link: "/",
+      },
+      {
+        key: "3",
+        label: "UpComing",
+        link: "/",
+      },
+      {
+        key: "4",
+        label: "Top Rated",
+        link: "/",
+      },
+    ],
+  },
+  {
+    title: "TV show",
+    id: 2,
+    subMenus: [
+      {
+        key: "1",
+        label: "Popular",
+        link: "/",
+      },
+      {
+        key: "2",
+        label: "Airing Today",
+        link: "/",
+      },
+      {
+        key: "3",
+        label: "On TV",
+        link: "/",
+      },
+      {
+        key: "4",
+        label: "Top Rated",
+        link: "/",
+      },
+    ],
+  },
+
+  {
+    title: "Contact Info",
+    id: 2,
+    subMenus: [
+      {
+        key: "1",
+        label: "About",
+        link: "/",
+      },
+    ],
+  },
+];
