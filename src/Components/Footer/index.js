@@ -45,11 +45,11 @@ export default function Footer() {
             <h4>Name: </h4>
             <p className="basic">Fatemeh Hajihadi</p>
             <h4>Name project:</h4>
-            <p className="basic"> Meow movie</p>
+            <p className="basic"> React final project</p>
             <h4>Practice course:</h4>
             <p className="basic"> CodingFront</p>
           </div>
-          <div className="menu flex space-between ">{renderMenu()}</div>
+          <div className="menu row space-between ">{renderMenu()}</div>
         </div>
         <div className="socialMedia col-5">
           <p> Copyright © June 2024 All rights reserved | Hope you enjoy</p>
@@ -59,13 +59,15 @@ export default function Footer() {
                 style={{ padding: "0.5em", fontSize: "2.5rem" }}
               />
             </Link>
-            <InstagramOutlined
-              style={{ padding: "0.5em", fontSize: "2.5rem" }}
-            />
-            <Link to="">
+            <Link to="/">
+              <InstagramOutlined
+                style={{ padding: "0.5em", fontSize: "2.5rem" }}
+              />
+            </Link>
+            <Link to="/">
               <SendOutlined style={{ padding: "0.5em", fontSize: "2.5rem" }} />
             </Link>
-            <Link to="">
+            <Link to="/">
               <LinkedinOutlined
                 style={{ padding: "0.5em", fontSize: "2.5rem" }}
               />

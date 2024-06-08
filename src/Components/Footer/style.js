@@ -5,6 +5,7 @@ const Style = styled.div`
     width: 400px;
   }
   .footer {
+  margin-top:15em;
     padding: 8em 2em 4em 2em;
     box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -33,7 +34,7 @@ const Style = styled.div`
       text-align:center;
       font-size:1.7rem;
       margin-top:4em;
-      padding: 3em;
+      padding-top: 3em;
       line-height:4;
     
       }

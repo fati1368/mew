@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../Pages/Home";
-import SingleItem from "../Pages/SingleItem";
+import SingleItemMovie from "../Pages/SingleItem";
 import Search from "../Pages/Search";
 import Filter from "../Pages/Filter";
 import Genre from "../Pages/Genre";
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/movie/:id",
-    element: <SingleItem />,
+    element: <SingleItemMovie />,
   },
   {
     path: "/search",

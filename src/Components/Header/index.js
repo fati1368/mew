@@ -27,7 +27,7 @@ export default function Header() {
   }, [callBack]);
   return (
     <Style>
-      <header className="relative">
+      <header className="relative" style={{zIndex:"10"}}>
         <div
           className={`container flex space-between align-center fixed  ${
             isScrolled ? "blurMenu" : ""

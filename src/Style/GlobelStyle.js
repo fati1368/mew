@@ -166,5 +166,8 @@ const GlobalStyle = createGlobalStyle`
   [class^="col-"] {
     padding: 15px;
   }
+    a{
+    &:hover{
+    color:${palette.fontColorSection}}}
   `;
 export default GlobalStyle;
