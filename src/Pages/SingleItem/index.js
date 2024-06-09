@@ -4,10 +4,10 @@ import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import formatNumberToAccounting from "../../Helpers/formatNumberToAccounting";
-import { LinkOutlined } from "@ant-design/icons";
-import { format } from "date-fns";
 import { DetailMovie } from "../../Components/DetailMovie";
 import SRCimg from "../../Helpers/SRCimg";
+import renderCountries from "../../Helpers/renderCountries";
+import Credit from "../../Components/Credit";
 
 export default function SingleItemMovie() {
   const { id } = useParams();
@@ -16,7 +16,10 @@ export default function SingleItemMovie() {
   const [dataCompany, SetDataCompony] = useState([]);
   const [data, setData] = useState({});
   const [dataCountries, setDataCountries] = useState([]);
-  const [dataRelease, setDataRelease] = useState("2024-05-01");
+  const [dataCredit, SetDataCredit] = useState([]);
+  const [writerFilter, setWriterFilter] = useState([]);
+  const [directorFilter, setDirectorFilter] = useState([]);
+
   useEffect(() => {
     getAPI();
     setLoading(true);
@@ -28,36 +31,60 @@ export default function SingleItemMovie() {
         SetDataGenre(res.data.genres);
         SetDataCompony(res.data.production_companies);
         setDataCountries(res.data.production_countries);
-        setDataRelease(res.data.release_date);
-
         setLoading(false);
       })
       .catch(function (err) {
         console.log(err);
         setLoading(false);
       });
+    API.get(`movie/${id}/credits?${KeyAPI}`)
+      .then((res) => {
+        SetDataCredit(res.data.cast.slice(0, 10));
+        setLoading(false);
+        setWriterFilter(
+          res.data.crew.filter((crew) => crew.department === "Writing")
+        );
+        setDirectorFilter(
+          res.data.crew.filter((crew) => crew.job === "Director")
+        );
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   }
-  const formattedDate = format(new Date(dataRelease), "MM/dd/yyyy");
-  function renderGenre() {
-    return dataGenre.map(({ id, name }) => {
-      return <span key={id}>{name},</span>;
-    });
-  }
-  function renderCompony() {
-    return dataCompany.map(({ id, name, logo_path }) => {
+  function renderWriter() {
+    const writerSlice = writerFilter.slice(0, 2);
+    return writerSlice.map(({ id, name, job }) => {
       return (
-        <li key={id}>
-          <img src={`${SRCimg}${logo_path}`} />
-          <p>{name}</p>
-        </li>
+        <div key={id} >
+          <p>{job}:</p>
+          <div>{name}</div>
+        </div>
       );
     });
   }
-  function renderCountries() {
-    return dataCountries.map(({ id, iso_3166_1 }) => {
+  function renderDirector() {
+    const directorSlice = directorFilter.slice(0, 2);
+    return directorSlice.map(({ id, name, job }) => {
+      return (
+        <div key={id} >
+          <p>{job}:</p>
+          <div>{name}</div>
+        </div>
+      );
+    });
+  }
+  function renderGenre() {
+    return dataGenre.map(({ id, name }) => {
+      return <span key={id}> {name},</span>;
+    });
+  }
+
+  function renderCompony() {
+    return dataCompany.map(({ id, logo_path }) => {
       return (
         <li key={id}>
-          <p>{iso_3166_1}</p>
+          <img src={`${SRCimg}${logo_path}`} />
         </li>
       );
     });
@@ -75,19 +102,22 @@ export default function SingleItemMovie() {
             title={data.title}
             age={data.adult}
             genre={renderGenre()}
-            dateRelease={formattedDate}
+            dateRelease={data.release_date}
             runTime={data.runtime}
             tagLine={data.tagline}
             overview={data.overview}
+            id={data.id}
+            linkWebsite={data.homepage}
+            writer={renderWriter()}
+            director={renderDirector()}
           />
-
+          <div>
+            <Credit dataActing={dataCredit} />
+          </div>
           <div className="right container">
             <h2>cost:</h2>
             <p>{`Status: ${data.status}`}</p>
             <p>{`Revenue:$${formatNumberToAccounting(data.revenue)}`}</p>
-            <Link to={data.homepage}>
-              <LinkOutlined />
-            </Link>
             <p>Budget: </p>
             <div className="budget">
               ${formatNumberToAccounting(data.budget)}
@@ -97,14 +127,16 @@ export default function SingleItemMovie() {
           <p>Original Language</p>
           <p>{data.original_language}</p>
           <p>production Countries</p>
-          <div>{renderCountries()}</div>
+          <div>{renderCountries(dataCountries)}</div>
+          <p>{renderWriter()}</p>
+          <p></p>
         </section>
       )}
     </PrimaryLayout>
   );
 }
-// https://api.themoviedb.org/3/movie/{movie_id}/credits
-//https://api.themoviedb.org/3/movie/{movie_id}/external_ids
+//
+//
 //https://api.themoviedb.org/3/movie/{movie_id}/keywords
 //https://api.themoviedb.org/3/movie/{movie_id}/images
 //https://api.themoviedb.org/3/movie/{movie_id}/recommendations

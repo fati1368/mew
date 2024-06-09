@@ -17,7 +17,7 @@ export default function AgeIcon({ adult }) {
 
   const MinesSVG = () => (
     <svg
-      class="svg-icon"
+      className="svg-icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       width="30px"

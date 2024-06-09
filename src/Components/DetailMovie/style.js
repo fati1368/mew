@@ -35,12 +35,15 @@ const Style = styled.div`
             box-shadow: 0px 0px 30px rgba(1, 1, 1, 1);
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
+            .social{
+            text-align:center;
+            margin-top:0.5em;}
         }
         .information {
           flex-direction: column;
           margin-left: 2em;
           justify-content: space-between;
-          height: 320px;
+          height: 350px;
 
           .sub-title {
             gap: 10px;
@@ -70,6 +73,14 @@ const Style = styled.div`
       font-size: 4rem;
       margin: 0;
     }
+      .gap{
+      gap:5em;
+      padding:0 10em;
+      font-size:1.5rem;
+      p{
+      color:${palette.fontColorSection}}
+      font-weight:700;
+      }
   }
 `;
 export default Style;

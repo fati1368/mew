@@ -77,25 +77,25 @@ export const menuData = [
 export const footerData = [
   {
     title: "Movie ",
-    id: 1,
+    id: "1a",
     subMenus: [
       {
-        key: "1",
+        key: "1aa",
         label: "Popular",
         link: "/",
       },
       {
-        key: "2",
+        key: "2aa",
         label: "Now Playing",
         link: "/",
       },
       {
-        key: "3",
+        key: "3aa",
         label: "UpComing",
         link: "/",
       },
       {
-        key: "4",
+        key: "4aa",
         label: "Top Rated",
         link: "/",
       },
@@ -103,25 +103,25 @@ export const footerData = [
   },
   {
     title: "TV show",
-    id: 2,
+    id: "2b",
     subMenus: [
       {
-        key: "1",
+        key: "1bb",
         label: "Popular",
         link: "/",
       },
       {
-        key: "2",
+        key: "2bb",
         label: "Airing Today",
         link: "/",
       },
       {
-        key: "3",
+        key: "3bb",
         label: "On TV",
         link: "/",
       },
       {
-        key: "4",
+        key: "4bb",
         label: "Top Rated",
         link: "/",
       },
@@ -130,10 +130,10 @@ export const footerData = [
 
   {
     title: "Contact Info",
-    id: 2,
+    id: "3c",
     subMenus: [
       {
-        key: "1",
+        key: "1ac",
         label: "About",
         link: "/",
       },

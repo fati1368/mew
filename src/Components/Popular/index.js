@@ -33,6 +33,7 @@ export default function Popular() {
         setLoading(false);
       });
   }
+
   const currentProb = placement === "movie" ? "movie" : "tv";
   return (
     <section className="Popular ">
