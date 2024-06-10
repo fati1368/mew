@@ -8,6 +8,8 @@ import { DetailMovie } from "../../Components/DetailMovie";
 import SRCimg from "../../Helpers/SRCimg";
 import renderCountries from "../../Helpers/renderCountries";
 import Credit from "../../Components/Credit";
+import Gallery from "../../Components/Gallery";
+import PosterPic from "../../Components/PosterPic";
 
 export default function SingleItemMovie() {
   const { id } = useParams();
@@ -52,12 +54,17 @@ export default function SingleItemMovie() {
         setLoading(false);
       });
   }
+  function renderGenre() {
+    return dataGenre.map(({ index, name }) => {
+      return <span key={index}> {name},</span>;
+    });
+  }
   function renderWriter() {
     const writerSlice = writerFilter.slice(0, 2);
     return writerSlice.map(({ id, name, job }) => {
       return (
-        <div key={id} >
-          <p>{job}:</p>
+        <div key={id}>
+          <div className="title">{job}:</div>
           <div>{name}</div>
         </div>
       );
@@ -67,23 +74,18 @@ export default function SingleItemMovie() {
     const directorSlice = directorFilter.slice(0, 2);
     return directorSlice.map(({ id, name, job }) => {
       return (
-        <div key={id} >
-          <p>{job}:</p>
+        <div key={id}>
+          <div className="title">{job}:</div>
           <div>{name}</div>
         </div>
       );
     });
   }
-  function renderGenre() {
-    return dataGenre.map(({ id, name }) => {
-      return <span key={id}> {name},</span>;
-    });
-  }
 
   function renderCompony() {
-    return dataCompany.map(({ id, logo_path }) => {
+    return dataCompany.map(({ index, logo_path }) => {
       return (
-        <li key={id}>
+        <li key={index}>
           <img src={`${SRCimg}${logo_path}`} />
         </li>
       );
@@ -97,21 +99,18 @@ export default function SingleItemMovie() {
       ) : (
         <section>
           <DetailMovie
-            heroImg={data.backdrop_path}
-            heroPoster={data.poster_path}
-            title={data.title}
-            age={data.adult}
-            genre={renderGenre()}
             dateRelease={data.release_date}
-            runTime={data.runtime}
-            tagLine={data.tagline}
-            overview={data.overview}
-            id={data.id}
-            linkWebsite={data.homepage}
+            data={data}
             writer={renderWriter()}
             director={renderDirector()}
+            genre={renderGenre()}
+            rate={data.vote_average}
           />
           <div>
+            
+            <Gallery/>
+            <PosterPic poster={data.poster_path}/>
+
             <Credit dataActing={dataCredit} />
           </div>
           <div className="right container">
@@ -138,10 +137,8 @@ export default function SingleItemMovie() {
 //
 //
 //https://api.themoviedb.org/3/movie/{movie_id}/keywords
-//https://api.themoviedb.org/3/movie/{movie_id}/images
+//
 //https://api.themoviedb.org/3/movie/{movie_id}/recommendations
 //https://api.themoviedb.org/3/movie/{movie_id}/reviews
 //https://api.themoviedb.org/3/movie/{movie_id}/videos
 //https://api.themoviedb.org/3/movie/{movie_id}/similar
-//
-//https://api.themoviedb.org/3/movie/{movie_id}/watch/providers

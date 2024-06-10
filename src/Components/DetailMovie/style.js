@@ -5,7 +5,7 @@ const Style = styled.div`
     position: relative;
     height: 100vh;
     border-bottom: 1px solid;
-    box-shadow: 0px 0px 30px rgba(277, 277, 277,0.3);
+    box-shadow: 0px 0px 30px rgba(277, 277, 277, 0.3);
 
     background-position: left top;
     background-size: cover;
@@ -35,9 +35,10 @@ const Style = styled.div`
             box-shadow: 0px 0px 30px rgba(1, 1, 1, 1);
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
-            .social{
-            text-align:center;
-            margin-top:0.5em;}
+          .social {
+            text-align: center;
+            margin-top: 0.5em;
+          }
         }
         .information {
           flex-direction: column;
@@ -50,7 +51,26 @@ const Style = styled.div`
             font-size: 1.5rem;
             align-content: flex-start;
           }
-
+          .vote {
+            box-shadow: 90px 90px 90px rgba(1, 1, 1, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: max-content;
+            border-radius: 30%;
+            padding: 1em;
+            gap: 2.5em;
+            align-items: center;
+            .user-score {
+              color: ${palette.fontColorSection};
+              .Percent {
+                top: 0;
+                left: 100%;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                font-size: 2rem;
+              }
+            }
+          }
           .overview {
             padding: 2em 1em;
             backdrop-filter: blur(3px);
@@ -73,14 +93,15 @@ const Style = styled.div`
       font-size: 4rem;
       margin: 0;
     }
-      .gap{
-      gap:5em;
-      padding:0 10em;
-      font-size:1.5rem;
-      p{
-      color:${palette.fontColorSection}}
-      font-weight:700;
+    .gap {
+      gap: 5em;
+      padding: 0 10em;
+      font-size: 1.5rem;
+      .title {
+        color: ${palette.fontColorSection};
       }
+      font-weight: 700;
+    }
   }
 `;
 export default Style;
