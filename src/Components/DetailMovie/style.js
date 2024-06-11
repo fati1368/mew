@@ -72,7 +72,7 @@ const Style = styled.div`
             }
           }
           .overview {
-            padding: 2em 1em;
+            padding: 1em;
             backdrop-filter: blur(3px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;

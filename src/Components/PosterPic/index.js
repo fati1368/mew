@@ -6,8 +6,9 @@ import KeyAPI from "../../Helpers/KeyAPI";
 import { Link, useParams } from "react-router-dom";
 import SRCimgSlid from "../../Helpers/SRCimgSlid";
 import SRCimg from "../../Helpers/SRCimg";
+import Style from "./style";
 
-export default function PosterPic({poster}) {
+export default function PosterPic({ poster }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,6 @@ export default function PosterPic({poster}) {
       .then(function (res) {
         setData(res.data.posters);
         setLoading(false);
-        console.log(data, "slid");
       })
       .catch(function (err) {
         setLoading(false);
@@ -31,14 +31,13 @@ export default function PosterPic({poster}) {
   }
 
   return (
-    <div className="col-5">
-      <h2>Gallery</h2>
-      <Image.PreviewGroup items={renderImage()}>
-        <Image
-          width={200}
-          src={`${SRCimg}${poster}`}
-        />
-      </Image.PreviewGroup>
-    </div>
+    <Style>
+      <div className="col-5">
+        <h2 className="title">More </h2>
+        <Image.PreviewGroup items={renderImage()}>
+          <Image width={200} src={`${SRCimg}${poster}`} />
+        </Image.PreviewGroup>
+      </div>
+    </Style>
   );
 }

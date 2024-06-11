@@ -13,6 +13,8 @@ const Style = styled.div`
     object-fit: cover;
   }
 }
+  .title{
+  color:${palette.fontColorSection};}
 }
 .hero-text {
   top:20%;

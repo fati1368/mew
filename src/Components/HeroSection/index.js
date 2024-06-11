@@ -8,7 +8,7 @@ export default function HeroSection() {
   return (
     <Style>
       <div className="hero-text absolute ">
-        <h1 className="mb-2"> Welcome</h1>
+        <h1 className="mb-2 title"> Welcome</h1>
         <h2 className="mb-3">Explore Movies and Series</h2>
         <p>Millions of movies, TV shows and people to discover</p>
         <Button

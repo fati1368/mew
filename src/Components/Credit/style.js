@@ -2,17 +2,27 @@ import styled from "styled-components";
 import { palette } from "../../Style/Theme";
 
 const Style = styled.div`
-.title-name{
-    padding-top:2em;
-}
- 
-      p {
-        color: ${palette.fontColorSection};
+  .credit {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding:1em;
+
+    .title-name {
+      padding-top: 2em;
+      align-item:center;
+    }
+
+    p {
+      color: ${palette.fontColorSection};
+    }
+    span {
+      color: ${palette.fontColor};
+    }
+      h3{
+            text-align:center;
+            
+
       }
-      span {
-        color: ${palette.fontColor};
-      }
-   
- 
+  }
 `;
 export default Style;

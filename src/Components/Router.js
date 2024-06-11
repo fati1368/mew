@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../Pages/Home";
-import SingleItemMovie from "../Pages/SingleItem";
+import SingleItemMovie from "../Pages/SingleItemMovie";
 import Search from "../Pages/Search";
 import Filter from "../Pages/Filter";
 import Genre from "../Pages/Genre";

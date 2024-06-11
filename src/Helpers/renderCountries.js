@@ -1,9 +1,7 @@
 export default function renderCountries(data) {
-    return data.map(({ id, iso_3166_1 }) => {
+    return data.map(({ iso_3166_1, name }) => {
       return (
-        <li key={id}>
-          <p>{iso_3166_1}</p>
-        </li>
+          <span key={iso_3166_1} className="country">   {name}  .  </span>
       );
     });
   }

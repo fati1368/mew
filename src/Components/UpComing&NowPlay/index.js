@@ -36,7 +36,7 @@ export default function UpComingNowPlay() {
     <section className="TopRated ">
       <SectionTitle
         title="Movie"
-        colorTitle={palette.fontColorSection}
+        colorTitle={palette.fontColor}
         subTitleOne="MOST Trending MOVIES & Series RIGHT NOW:a"
         subTitleTwo="WHAT TO WATCH IN THEATERS AND STREAMING"
         filterBottom={APIrequest.movie}

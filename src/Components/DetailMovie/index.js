@@ -17,7 +17,6 @@ export function DetailMovie({
   writer,
   director,
   rate,
-  genre,
 }) {
   const { id } = useParams();
   const formattedDate = format(new Date(dateRelease), "MM/dd/yyyy");
@@ -33,6 +32,7 @@ export function DetailMovie({
     tagline,
     overview,
     homepage,
+    genres=[],
   } = data;
   useEffect(() => {
     getAPI();
@@ -48,6 +48,33 @@ export function DetailMovie({
         console.log(err);
         setLoading(false);
       });
+  }
+  function renderGenre() {
+    return genres.map(({ index, name }) => {
+      return <span key={index}> {name},</span>;
+    });
+  }
+  function renderWriter() {
+    const writerSlice = writer.slice(0, 2);
+    return writerSlice.map(({ id, name, job }) => {
+      return (
+        <div key={id}>
+          <div className="title">{job}:</div>
+          <div>{name}</div>
+        </div>
+      );
+    });
+  }
+  function renderDirector() {
+    const directorSlice = director.slice(0, 2);
+    return directorSlice.map(({ id, name, job }) => {
+      return (
+        <div key={id}>
+          <div className="title">{job}:</div>
+          <div>{name}</div>
+        </div>
+      );
+    });
   }
 
   return (
@@ -82,7 +109,7 @@ export function DetailMovie({
                       <div className="adult">
                         <AgeIcon adult={adult} />
                       </div>
-                      <ul>{genre}</ul>
+                      <ul>{renderGenre()}</ul>
                       <p>{formattedDate}</p>
                       <p>{convertMinToHoursAndMin(runtime)}</p>
                     </div>
@@ -106,8 +133,8 @@ export function DetailMovie({
                   </div>
                   <div>
                     <div className="flex space-between col-12 gap">
-                      {director}
-                      {writer}
+                      {renderDirector()}
+                      {renderWriter()}
                     </div>
                   </div>
                 </div>
