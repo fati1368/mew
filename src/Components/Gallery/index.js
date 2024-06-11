@@ -6,7 +6,7 @@ import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import { Link, useParams } from "react-router-dom";
 import SRCimgSlid from "../../Helpers/SRCimgSlid";
-export default function Gallery() {
+export default function Gallery({currentData}) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ export default function Gallery() {
     setLoading(true);
   }, [id]);
   function getAPI() {
-    API.get(`movie/${id}/images?${KeyAPI}`)
+    API.get(`${currentData === "tv" ? "tv" : "movie"}/${id}/images?${KeyAPI}`)
       .then(function (res) {
         setData(res.data.backdrops.slice(0, 15));
         setLoading(false);

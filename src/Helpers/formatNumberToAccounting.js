@@ -1,6 +1,6 @@
 export default function formatNumberToAccounting(revenue) {
   if (typeof revenue !== "number") {
-    return "Invalid input";
+    return "";
   }
   const numString = revenue.toString();
   const [integerPart, decimalPart] = numString.split(".");

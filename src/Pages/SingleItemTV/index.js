@@ -8,12 +8,12 @@ import Credit from "../../Components/Credit";
 import Gallery from "../../Components/Gallery";
 import PosterPic from "../../Components/PosterPic";
 import { palette } from "../../Style/Theme";
-import TitleSingleItemMovie from "../../Components/TitleSingleItemMovie";
+import TitleSingleItemTV from "../../Components/TitleSingleItemTV";
 import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
 import Recommendations from "../../Components/recommendations";
 
-export default function SingleItemMovie() {
+export default function SingleItemTV() {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
@@ -23,9 +23,9 @@ export default function SingleItemMovie() {
   useEffect(() => {
     getAPI();
     setLoading(true);
-  }, [id]);
+  }, [id ]);
   function getAPI() {
-    API.get(`movie/${id}?${KeyAPI}`)
+    API.get(`tv/${id}?${KeyAPI}`)
       .then(function (res) {
         setData(res.data);
         setLoading(false);
@@ -48,36 +48,36 @@ export default function SingleItemMovie() {
       ) : (
         <section>
           <DetailMovie
-            dateRelease={data.release_date}
+            dateRelease={data.first_air_date}
             data={data}
             writer={writerFilter}
             director={directorFilter}
-            currentData="movie"
+            currentData="tv"
           />
           <div className=" flex container ">
             <div className="col-9">
-              <TitleSingleItemMovie
+              <TitleSingleItemTV
                 data={data}
                 colorTitle={palette.fontColorSection}
               />
               <div>
                 <h2 className="pb-5 pt-5">Gallery</h2>
                 <div className="flex align-center">
-                  <Gallery currentData="movie" />
-                  <PosterPic poster={data.poster_path} currentData="movie" />
+                  <Gallery currentData="tv" />
+                  <PosterPic poster={data.poster_path} currentData="tv" />
                 </div>
-                <Video currentData="movie" />
+                <Video currentData="tv" />
               </div>
             </div>
             <div className="col-3">
               <Credit
-                currentData="movie"
+                currentData="tv"
                 callBackWriter={handleWriter}
                 callBackDirector={handleDirector}
               />
             </div>
           </div>
-          <Recommendations currentData="movie" />
+          <Recommendations currentData="tv" />
         </section>
       )}
     </PrimaryLayout>

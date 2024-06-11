@@ -44,6 +44,9 @@ const Style = styled.div`
       font-size: 2em;
       text-transform: uppercase;
     }
+    h4 {
+      text-transform: uppercase;
+    }
     p,
     .p {
       font-size: 2rem;

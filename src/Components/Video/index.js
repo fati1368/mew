@@ -5,7 +5,7 @@ import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import Style from "./style";
 
-export default function Video() {
+export default function Video({currentData}) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export default function Video() {
     setLoading(true);
   }, [id]);
   function getAPI() {
-    API.get(`movie/${id}/videos?${KeyAPI}`)
+    API.get(`${currentData === "tv" ? "tv" : "movie"}/${id}/videos?${KeyAPI}`)
       .then(function (res) {
         setData(res.data.results.slice(0, 1));
         setLoading(false);

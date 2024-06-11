@@ -16,7 +16,7 @@ export function DetailMovie({
   data,
   writer,
   director,
-  rate,
+  currentData,
 }) {
   const { id } = useParams();
   const formattedDate = format(new Date(dateRelease), "MM/dd/yyyy");
@@ -27,19 +27,23 @@ export function DetailMovie({
     backdrop_path,
     poster_path,
     title,
+    name,
     adult,
     runtime,
     tagline,
     overview,
     homepage,
-    genres=[],
+    genres = [],
+    vote_average,
   } = data;
   useEffect(() => {
     getAPI();
     setLoading(true);
   }, [id]);
   function getAPI() {
-    API.get(`movie/${id}/external_ids?${KeyAPI}`)
+    API.get(
+      `${currentData === "tv" ? "tv" : "movie"}/${id}/external_ids?${KeyAPI}`
+    )
       .then(function (res) {
         setDataSocialLink(res.data);
         setLoading(false);
@@ -50,8 +54,8 @@ export function DetailMovie({
       });
   }
   function renderGenre() {
-    return genres.map(({ index, name }) => {
-      return <span key={index}> {name},</span>;
+    return genres.map(({ id, name }) => {
+      return <span key={id}> {name},</span>;
     });
   }
   function renderWriter() {
@@ -76,6 +80,19 @@ export function DetailMovie({
       );
     });
   }
+  const overviewCheck = () => {
+    if (overview && overview.length > 0) {
+      return (
+        <div className="overview-tagline">
+          <h4>Overview:</h4>
+          <div className="overview">
+            <p className="tagline">{tagline}</p>
+            <p>{overview}</p>
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <section className="hero-section">
@@ -104,33 +121,28 @@ export function DetailMovie({
                 </div>
                 <div className="information flex  ">
                   <div className="title-subtitle">
-                    <h1>{title}</h1>
+                    <h1>{currentData === "movie" ? title : name}</h1>
                     <div className="flex  align-center sub-title ">
                       <div className="adult">
                         <AgeIcon adult={adult} />
                       </div>
                       <ul>{renderGenre()}</ul>
                       <p>{formattedDate}</p>
-                      <p>{convertMinToHoursAndMin(runtime)}</p>
+                      <p>{runtime ? convertMinToHoursAndMin(runtime) : ""}</p>
                     </div>
                   </div>
                   <div className="vote flex">
                     <div className="user-score relative">
-                    <h2>{UserScore(rate)}</h2>
-                    <span className="Percent absolute">%</span>
+                      <h2>{UserScore(vote_average)}</h2>
+                      <span className="Percent absolute">%</span>
                     </div>
                     <div>
                       <p>user</p>
                       <p>Score</p>
                     </div>
                   </div>
-                  <div className="overview-tagline">
-                    <h4>Overview:</h4>
-                    <div className="overview">
-                      <p className="tagline">{tagline}</p>
-                      <p>{overview}</p>
-                    </div>
-                  </div>
+                  {overviewCheck()}
+
                   <div>
                     <div className="flex space-between col-12 gap">
                       {renderDirector()}

@@ -93,7 +93,10 @@ const Style = styled.div`
             .title{
                 text-align:left;
                 color:${palette.thirdColor};
-            }
+                }
+                h4{
+                font-size:1.5rem;
+                }
         }
       }
     }

@@ -6,7 +6,7 @@ import KeyAPI from "../../Helpers/KeyAPI";
 import React from "react";
 import Style from "./style";
 
-export default function Recommendations() {
+export default function Recommendations({currentData}) {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
@@ -15,7 +15,7 @@ export default function Recommendations() {
     setLoading(true);
   }, [id]);
   function getAPI() {
-    API.get(`movie/${id}/recommendations?${KeyAPI}`)
+    API.get(`${currentData === "tv" ? "tv" : "movie"}/${id}/recommendations?${KeyAPI}`)
       .then(function (res) {
         setData(res.data.results.slice(0, 6));
         setLoading(false);
@@ -28,12 +28,12 @@ export default function Recommendations() {
   
   const convertObjectToArray = Object.values(data);
   //const result = convertObjectToArray[0];
-
+  const mediaType = currentData === "tv" ? "tv" : "movie"
   console.log(data, "similar");
   return(
 <Style>
 <h3>Recommendations</h3>
-    <Card dataAPI={convertObjectToArray} mediaType="movie" />;
+    <Card dataAPI={convertObjectToArray} mediaType={mediaType} />;
 </Style>
 ) 
 }

@@ -23,7 +23,7 @@ export default function Card({ dataAPI, mediaType }) {
         const currentData= mediaType === "" ?  media_type : mediaType
         const starRating = convertToStars({ vote_average });
         return (
-          <Link key={id} to={`/movie/${id}`}>
+          <Link key={id} to={`/${currentData === "tv" ? "tv" : "movie"}/${id}`}>
             <li className="col ">
               <div className=" containerCard  ">
                 <div

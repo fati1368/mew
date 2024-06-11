@@ -8,7 +8,6 @@ const Style = styled.div`
     padding:1em;
 
     .title-name {
-      padding-top: 2em;
       align-item:center;
     }
 

@@ -8,7 +8,7 @@ import SRCimgSlid from "../../Helpers/SRCimgSlid";
 import SRCimg from "../../Helpers/SRCimg";
 import Style from "./style";
 
-export default function PosterPic({ poster }) {
+export default function PosterPic({ poster ,currentData }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export default function PosterPic({ poster }) {
     setLoading(true);
   }, [id]);
   function getAPI() {
-    API.get(`movie/${id}/images?${KeyAPI}`)
+    API.get(`${currentData === "tv" ? "tv" : "movie"}/${id}/images?${KeyAPI}`)
       .then(function (res) {
         setData(res.data.posters);
         setLoading(false);
