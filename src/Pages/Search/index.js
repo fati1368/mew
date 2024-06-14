@@ -16,64 +16,65 @@ import Card from "../../Components/Layout/Card";
 import CardPerson from "../../Components/Layout/CardPerson";
 
 export default function Search() {
-  const [queryStrings, setQueryStrings] = useSearchParams();
-  const [pageSearchParams, setPageSearchParams] = useSearchParams();
+  const [queryName, setQueryName] = useSearchParams();
+  const [queryPage, setQueryPage] = useSearchParams();
   const [dataNull, setDataNull] = useState([]);
   const [dataMovies, setDataMovies] = useState([]);
   const [dataPerson, setDataPerson] = useState([]);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
-  
+
   useEffect(
     function () {
-   
-      // getAPI(pageSearchParams.get("page") ? pageSearchParams.get("page") : 1);
-
-      if (queryStrings.get("name") && queryStrings.get("name") == !"") {
-        getAPI(queryStrings.get("name"));
-        }
-        // const storedResult = sessionStorage.getItem("save");
-        //   if (storedResult && storedResult ==! ""){
-        //     const result = JSON.parse(storedResult)
-        //     setData(result)
-        //   }
-      
+      getAPI(
+        queryName.get("name") && queryName.get("name") !== "",
+        queryPage.get("page")
+      );
     },
-    [queryStrings]
+    [queryPage]
     // [pageSearchParams.get("page")]
   );
-  // useEffect(() => {
-  //   const throttleTimeout = setTimeout(() => {
-  //     if (queryStrings.get('name') && queryStrings.get('name') !== '') {
-  //       getAPI(queryStrings.get('name'));
-  //     }
-  //   }, 500);
-
-  //   return () => clearTimeout(throttleTimeout);
-  // }, [queryStrings, ]);
-  async function getAPI(queryName) {
+  async function getAPI(queryName , page=1) {
     try {
       const res = await API.get(
-        `search/multi?${KeyAPI}&query=${queryName}&include_adult=false&language=en-US&`
-        // { params: { page: page } }
-        );
-        setData(res.data);
-        sessionStorage.setItem("save", JSON.stringify(data));
+        `search/multi?${KeyAPI}&query=${queryName}&include_adult=false&language=en-US&pages=${page}`
+        
+      );
+      setData(res.data);
+      console.log(data, "1");
+      sessionStorage.setItem("data", JSON.stringify(data));
+      const dataJson = sessionStorage.getItem("data");
+      const resultData = JSON.parse(dataJson);
+      console.log(resultData, "1jason");
+
+      const dataCurrent = data == null || data == undefined ? resultData : data;
       setDataNull(
-        data.results.filter(
+        dataCurrent.results.filter(
           (results) =>
             results.poster_path !== null || results.profile_path !== null
-          )
-          );
-      setDataMovies(
-        dataNull.filter(
-          (dataNull) =>
-            dataNull.media_type === "movie" || dataNull.media_type === "tv"
         )
       );
+      console.log(dataNull, "2n");
+
+      sessionStorage.setItem("null", JSON.stringify(dataNull));
+      const nullJason = sessionStorage.getItem("null");
+      const resultNull = JSON.parse(nullJason);
+      console.log(resultNull, "2jason");
+
+      const nullCurrent =
+        dataNull == null || dataNull == undefined ? dataNull : resultNull;
+
+      setDataMovies(
+        nullCurrent.filter(
+          (nullCurrent) =>
+            nullCurrent.media_type === "movie" ||
+            nullCurrent.media_type === "tv"
+        )
+      );
+
       setDataPerson(
-        dataNull.filter((dataNull) => dataNull.media_type === "person")
+        nullCurrent.filter((nullCurrent) => nullCurrent.media_type === "person")
       );
     } catch (error) {
       console.error("Error data:", error);
@@ -83,20 +84,23 @@ export default function Search() {
   const onType = (e) => {
     const queryName = e.target.value.trim();
     if (queryName.length > 2) {
-      setQueryStrings(createSearchParams({ name: queryName, page: "1" }));
-      getAPI(queryName);
-      // sessionStorage.setItem("searchName", queryName);
+      setQueryName(createSearchParams({ name: queryName, page: "1" }));
+      setTimeout(() => {
+        getAPI(queryName);
+      },1000);
     }
   };
-  console.log(data, "search");
-  console.log(dataNull, "null");
-  function onPageChange(page) {
-    navigate(`/search?name=${queryStrings.get("name")}&page=${page}`);
-  }
+
   function onEnter(e) {
     if (e.key === "Enter") {
-      navigate(`/search?name=${e.target.value}&page=1`);
+      const queryName = e.target.value.trim();
+      if (queryName.length > 2) {
+        navigate(`/search?name=${queryName}&page=1`);
+      }
     }
+  }
+  function onPageChange(page) {
+    navigate(`/search?name=${queryName.get("name")}&page=${page}`);
   }
   const [placement, SetPlacement] = useState("tv");
   const placementChange = (e) => {
@@ -108,7 +112,6 @@ export default function Search() {
   return (
     <PrimaryLayout>
       <Style>
-        {queryStrings.get("name")}
         <div className="container">
           <h1 className=" pb-5 pt-5"> Search</h1>
           <div className="search">
@@ -122,7 +125,7 @@ export default function Search() {
               <Button
                 size="large"
                 onClick={() => {
-                  navigate(`/search?name=${queryStrings.get("name")}&page=1`);
+                  navigate(`/search?name=${queryName.get("name")}&page=1`);
                 }}
               >
                 Search
@@ -146,12 +149,12 @@ export default function Search() {
               </Radio.Group>
             </div> */}
 
-            {/* <Pagination
-                onChange={onPageChange}
-                Current={data.page}
-                total={data.total_pages}
-                style={{ colorText: "#FFF" }}
-              /> */}
+            <Pagination
+              onChange={onPageChange}
+              Current={data.page}
+              total={data.total_pages}
+              style={{ colorText: "#FFF" }}
+            />
           </div>
         </div>
       </Style>
