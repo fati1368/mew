@@ -14,6 +14,7 @@ import { Button, Radio, Pagination, List, Input } from "antd";
 import ResultSearch from "../../Components/ResultSearch";
 import Card from "../../Components/Layout/Card";
 import CardPerson from "../../Components/Layout/CardPerson";
+import CardCollection from "../../Components/Layout/CardCollection";
 
 export default function Search() {
   const [queryName, setQueryName] = useSearchParams();
@@ -24,6 +25,7 @@ export default function Search() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+  const [placement, SetPlacement] = useSearchParams("multi");
 
   useEffect(
     function () {
@@ -32,14 +34,15 @@ export default function Search() {
         queryPage.get("page")
       );
     },
-    [queryPage]
+    [queryPage, placement]
     // [pageSearchParams.get("page")]
   );
-  async function getAPI(queryName , page=1) {
+  async function getAPI(queryName, page = 1) {
     try {
       const res = await API.get(
-        `search/multi?${KeyAPI}&query=${queryName}&include_adult=false&language=en-US&pages=${page}`
-        
+        `search/${
+          placement ? placement : "multi"
+        }?${KeyAPI}&query=${queryName}&include_adult=false&language=en-US&pages=${page}`
       );
       setData(res.data);
       console.log(data, "1");
@@ -87,7 +90,7 @@ export default function Search() {
       setQueryName(createSearchParams({ name: queryName, page: "1" }));
       setTimeout(() => {
         getAPI(queryName);
-      },1000);
+      }, 1000);
     }
   };
 
@@ -100,13 +103,21 @@ export default function Search() {
     }
   }
   function onPageChange(page) {
-    navigate(`/search?name=${queryName.get("name")}&page=${page}`);
+    navigate(
+      `/search?name=${queryName.get("name")}&page=${page}&${placement.get(
+        "place"
+      )}`
+    );
   }
-  const [placement, SetPlacement] = useState("tv");
   const placementChange = (e) => {
     const selectedPlacement = e.target.value;
-    SetPlacement(selectedPlacement);
-    // callBack(selectedPlacement);
+    SetPlacement(
+      createSearchParams({
+        name: queryName.get("name"),
+        page: "1",
+        place: selectedPlacement,
+      })
+    );
   };
 
   return (
@@ -131,11 +142,7 @@ export default function Search() {
                 Search
               </Button>
             </div>
-            {/* <ResultSearch dataMovie={dataMovies} dataPerson={dataPerson}/> */}
-            <Card dataAPI={dataMovies} mediaType="" />
-            <CardPerson dataAPI={dataPerson} />
-
-            {/* <div className="button flex  ">
+            <div className="button flex  ">
               <Radio.Group
                 className="mb-3"
                 value={placement}
@@ -143,11 +150,31 @@ export default function Search() {
               >
                 <Radio.Button value="movie">Movies</Radio.Button>
                 <Radio.Button value="tv">TV Shows</Radio.Button>
-                <Radio.Button value="People">People</Radio.Button>
-                <Radio.Button value="Companies">Companies</Radio.Button>
-                <Radio.Button value="Collections">Collections</Radio.Button>
+                <Radio.Button value="person">People</Radio.Button>
+                <Radio.Button value="company">Companies</Radio.Button>
+                <Radio.Button value="collection">Collections</Radio.Button>
+                <Radio.Button value="multi">ALL</Radio.Button>
               </Radio.Group>
-            </div> */}
+            </div>
+            {/* <ResultSearch dataMovie={dataMovies} dataPerson={dataPerson}/> */}
+            <Card dataAPI={dataMovies} mediaType="" />
+            <CardPerson dataAPI={dataPerson} />
+            {placement === "collection" ? (
+              <CardCollection dataAPI={data.results} />
+            ) : (
+              ""
+            )}
+            {placement === "company" ? (
+              <List
+                size="large"
+                bordered
+                locale
+                dataSource={data.results}
+                renderItem={(item) => <List.Item>{item}</List.Item>}
+              />
+            ) : (
+              ""
+            )}
 
             <Pagination
               onChange={onPageChange}
