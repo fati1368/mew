@@ -16,7 +16,7 @@ export default function Card({ dataAPI, mediaType }) {
         poster_path,
         media_type,
         release_date,
-        genre_ids,
+        genre_ids =[],
         first_air_date,
         vote_average,
       }) => {
@@ -69,7 +69,7 @@ export default function Card({ dataAPI, mediaType }) {
 
   return (
     <Style>
-      <ul className="flex justify-center">{renderFarm()}</ul>
+      <ul className="row justify-center">{renderFarm()}</ul>
     </Style>
   );
 }

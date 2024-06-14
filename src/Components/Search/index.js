@@ -7,15 +7,15 @@ import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
 import alertError from "../../Helpers/AlertError";
 
-export default function Search({callBack}) {
+export default function Search({ callBack }) {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(true);
   function handleSearch(e) {
     const query = e.target.value.trim();
     if (query.length >= 3) {
-      callBack(query)
+      callBack(query);
       API.get(
         `search/multi?${KeyAPI}&query=${query}&include_adult=false&language=en-US&page=1`
       )
@@ -49,13 +49,17 @@ export default function Search({callBack}) {
   }
   function onEnter(e) {
     if (e.key === "Enter") {
-      navigate(`/search?q=${e.target.value}`);
+      navigate(`/search?name=${e.target.value}`);
     }
   }
   return (
     <Style>
       <div className="relative">
-        <div className={` searchInput flex space-between align-center ${showResults ? "active" : ""}`}>
+        <div
+          className={` searchInput flex space-between align-center ${
+            showResults ? "active" : ""
+          }`}
+        >
           <Link className=" iconSearch" to={`/search`}>
             <IConSearch />
           </Link>
