@@ -12,78 +12,74 @@ import { palette } from "../../Style/Theme";
 import Style from "./style";
 import { Button, Radio, Pagination, List, Input } from "antd";
 import ResultSearch from "../../Components/ResultSearch";
+import Card from "../../Components/Layout/Card";
+import CardPerson from "../../Components/Layout/CardPerson";
 
 export default function Search() {
-  const { Search } = Input;
   const [queryStrings, setQueryStrings] = useSearchParams();
   const [pageSearchParams, setPageSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  const [data, setData] = useState([]);
-  const [dataNull, SetDataNull] = useState([]);
+  const [dataNull, setDataNull] = useState([]);
   const [dataMovies, setDataMovies] = useState([]);
-  const [dataTV, setDataTV] = useState([]);
   const [dataPerson, setDataPerson] = useState([]);
-  const [dataCompany, setDataCompany] = useState([]);
-  const [dataCollection, setDataCollection] = useState([]);
-  const [dataNullProfile, SetDataNullProfile] = useState([]);
-
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+  
   useEffect(
     function () {
-      // const storedName = sessionStorage.getItem("searchName");
-      // if (storedName) {
-      //   setQueryStrings(createSearchParams({ name: storedName, page: "1" }));
-      //   getAPI(storedName);
-      // }
-
+   
       // getAPI(pageSearchParams.get("page") ? pageSearchParams.get("page") : 1);
-      getAPI();
+
+      if (queryStrings.get("name") && queryStrings.get("name") == !"") {
+        getAPI(queryStrings.get("name"));
+        }
+        // const storedResult = sessionStorage.getItem("save");
+        //   if (storedResult && storedResult ==! ""){
+        //     const result = JSON.parse(storedResult)
+        //     setData(result)
+        //   }
+      
     },
-    []
+    [queryStrings]
     // [pageSearchParams.get("page")]
   );
-  function getAPI(queryName) {
-    API.get(
-      `search/multi?${KeyAPI}&query=${
-        queryName ? queryName : queryStrings.get("name")
-      }&include_adult=false&language=en-US&`
-      // { params: { page: page } }
-    )
-      .then(function (res) {
-        setData(res.data);
-        SetDataNull(
-          res.data.results.filter((results) => results.poster_path !== null)
-        );
-        SetDataNullProfile(
-          res.data.results.filter((results) => results.profile_path !== null)
-        );
-        setDataMovies(
-          dataNull.filter(
-            (dataNull) =>
-              dataNull.media_type === "movie" || dataNull.media_type === "tv"
-          )
-        );
-        setDataPerson(
-          dataNullProfile.filter(
-            (dataNullProfile) => dataNullProfile.media_type === "person"
-          )
-        );
-        setDataCompany(
-          res.data.results.filter((results) => results.media_type === "company")
-        );
-        setDataCollection(
-          dataNull.filter((dataNull) => dataNull.media_type === "collection")
-        );
+  // useEffect(() => {
+  //   const throttleTimeout = setTimeout(() => {
+  //     if (queryStrings.get('name') && queryStrings.get('name') !== '') {
+  //       getAPI(queryStrings.get('name'));
+  //     }
+  //   }, 500);
 
-        console.log(data, "salam");
-      })
-      .catch(function (err) {
-        console.log(err);
-        alert("not found");
-      });
+  //   return () => clearTimeout(throttleTimeout);
+  // }, [queryStrings, ]);
+  async function getAPI(queryName) {
+    try {
+      const res = await API.get(
+        `search/multi?${KeyAPI}&query=${queryName}&include_adult=false&language=en-US&`
+        // { params: { page: page } }
+        );
+        setData(res.data);
+        sessionStorage.setItem("save", JSON.stringify(data));
+      setDataNull(
+        data.results.filter(
+          (results) =>
+            results.poster_path !== null || results.profile_path !== null
+          )
+          );
+      setDataMovies(
+        dataNull.filter(
+          (dataNull) =>
+            dataNull.media_type === "movie" || dataNull.media_type === "tv"
+        )
+      );
+      setDataPerson(
+        dataNull.filter((dataNull) => dataNull.media_type === "person")
+      );
+    } catch (error) {
+      console.error("Error data:", error);
+    }
   }
 
-  console.log(data, queryStrings, "search");
   const onType = (e) => {
     const queryName = e.target.value.trim();
     if (queryName.length > 2) {
@@ -92,12 +88,14 @@ export default function Search() {
       // sessionStorage.setItem("searchName", queryName);
     }
   };
+  console.log(data, "search");
+  console.log(dataNull, "null");
   function onPageChange(page) {
     navigate(`/search?name=${queryStrings.get("name")}&page=${page}`);
   }
   function onEnter(e) {
     if (e.key === "Enter") {
-      navigate(`/search?q=${e.target.value}&page=1`);
+      navigate(`/search?name=${e.target.value}&page=1`);
     }
   }
   const [placement, SetPlacement] = useState("tv");
@@ -121,11 +119,19 @@ export default function Search() {
                 placeholder="input search text"
                 type="text"
               />
-              <Button size="large" onClick={() => {}}>
+              <Button
+                size="large"
+                onClick={() => {
+                  navigate(`/search?name=${queryStrings.get("name")}&page=1`);
+                }}
+              >
                 Search
               </Button>
             </div>
-            <ResultSearch movie={dataMovies} collection={dataCollection} person={dataPerson} company={dataCompany}/>
+            {/* <ResultSearch dataMovie={dataMovies} dataPerson={dataPerson}/> */}
+            <Card dataAPI={dataMovies} mediaType="" />
+            <CardPerson dataAPI={dataPerson} />
+
             {/* <div className="button flex  ">
               <Radio.Group
                 className="mb-3"
