@@ -8,6 +8,7 @@ import Popular from "../../Components/Popular";
 import TopRated from "../../Components/TopRated";
 import Trend from "../../Components/Trend";
 import UpComingNowPlay from "../../Components/UpComing&NowPlay";
+import { FloatButton } from "antd";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <TopRated />
       <UpComingNowPlay />
       <OnAirAiringToday />
+      <FloatButton.BackTop />
     </PrimaryLayout>
   );
 }

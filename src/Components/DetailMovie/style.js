@@ -52,24 +52,9 @@ const Style = styled.div`
             align-content: flex-start;
           }
           .vote {
-            box-shadow: 90px 90px 90px rgba(1, 1, 1, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: max-content;
-            border-radius: 30%;
             padding: 1em;
-            gap: 2.5em;
+            gap: 0.5em;
             align-items: center;
-            .user-score {
-              color: ${palette.fontColorSection};
-              .Percent {
-                top: 0;
-                left: 100%;
-                z-index: 1;
-                width: 100%;
-                height: 100%;
-                font-size: 2rem;
-              }
-            }
           }
           .overview {
             padding: 1em;

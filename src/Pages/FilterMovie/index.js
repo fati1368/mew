@@ -14,6 +14,7 @@ import KeyAPI from "../../Helpers/KeyAPI";
 import { Radio, Pagination, List, Space } from "antd";
 import Card from "../../Components/Layout/Card";
 import Style from "./style";
+import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 
 export default function FilterMovie() {
   const [genreMovie, setGenreMovie] = useState([]);
@@ -104,6 +105,7 @@ export default function FilterMovie() {
   }
 
   return (
+    <PrimaryLayout>
     <Style>
       <div className="mt-5 container">
         <h1 className="pt-5 pb-5 ">Filter Movie</h1>
@@ -139,5 +141,6 @@ export default function FilterMovie() {
         />
       </div>
     </Style>
+    </PrimaryLayout>
   );
 }

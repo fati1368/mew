@@ -10,6 +10,7 @@ import { useState, useEffect, Fragment } from "react";
 import API from "../../Helpers/API";
 import UserScore from "../../Helpers/Score";
 import { Link, useParams } from "react-router-dom";
+import { Flex, Progress } from "antd";
 
 export function DetailMovie({
   dateRelease = "2024-05-01",
@@ -36,6 +37,11 @@ export function DetailMovie({
     genres = [],
     vote_average,
   } = data;
+  const conicColors = {
+    "0%": "#87d068",
+    "50%": "#ffe58f",
+    "100%": "#ffccc7",
+  };
   useEffect(() => {
     getAPI();
     setLoading(true);
@@ -133,12 +139,15 @@ export function DetailMovie({
                   </div>
                   <div className="vote flex">
                     <div className="user-score relative">
-                      <h2>{UserScore(vote_average)}</h2>
-                      <span className="Percent absolute">%</span>
+                      <Progress
+                        type="dashboard"
+                        percent={UserScore(vote_average)}
+                        strokeColor={conicColors}
+                      />
                     </div>
                     <div>
-                      <p>user</p>
-                      <p>Score</p>
+                      <h3>user</h3>
+                      <h3>Score</h3>
                     </div>
                   </div>
                   {overviewCheck()}
