@@ -16,8 +16,8 @@ root.render(
         colorFillSecondary: `${palette.thirdColor}`,
         color: `${palette.secondaryColor}`,
         colorText: `${palette.secondaryColor}`,
-        itemInputBg	 :`${palette.secondaryColor}`,
         itemInputBg: `${palette.primaryColor}`,
+        
 
       },
     }}

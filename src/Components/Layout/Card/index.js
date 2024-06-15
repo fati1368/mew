@@ -69,7 +69,7 @@ export default function Card({ dataAPI, mediaType }) {
 
   return (
     <Style>
-      <ul className="row justify-center">{renderFarm()}</ul>
+      <ul className="row ">{renderFarm()}</ul>
     </Style>
   );
 }

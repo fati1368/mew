@@ -41,6 +41,7 @@ export default function Trend() {
         subTitleTwo="WHAT TO WATCH IN THEATERS AND STREAMING"
         filterBottom={APIrequest.trend}
         callBack={handlePlacement}
+        link="/filter/movie/vote_average.asc/"
       />
       <Card dataAPI={data} mediaType="" />
     </section>

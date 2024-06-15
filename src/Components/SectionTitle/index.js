@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Style from "./style";
 import { Radio } from "antd";
+import { Link } from "react-router-dom";
 
 export default function SectionTitle({
   title,
@@ -9,6 +10,7 @@ export default function SectionTitle({
   callBack,
   filterBottom,
   colorTitle,
+  link,
 }) {
   const [placement, SetPlacement] = useState("day");
   const placementChange = (e) => {
@@ -34,13 +36,17 @@ export default function SectionTitle({
             <h4>{subTitleOne}</h4>
             <h4>{subTitleTwo}</h4>
           </div>
+          <div>
+
           <Radio.Group
             className="mb-3"
             value={placement}
             onChange={placementChange}
-          >
+            >
             {render()}
           </Radio.Group>
+          <Link to={link}>all</Link>
+            </div>
         </div>
       </div>
     </Style>

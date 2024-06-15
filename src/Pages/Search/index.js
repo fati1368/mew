@@ -11,7 +11,6 @@ import React from "react";
 import { palette } from "../../Style/Theme";
 import Style from "./style";
 import { Button, Radio, Pagination, List, Input } from "antd";
-import ResultSearch from "../../Components/ResultSearch";
 import Card from "../../Components/Layout/Card";
 import CardPerson from "../../Components/Layout/CardPerson";
 import CardCollection from "../../Components/Layout/CardCollection";

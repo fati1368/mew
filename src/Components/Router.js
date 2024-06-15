@@ -3,7 +3,8 @@ import Home from "../Pages/Home";
 import SingleItemMovie from "../Pages/SingleItemMovie";
 import SingleItemTV from "../Pages/SingleItemTV";
 import Search from "../Pages/Search";
-import Filter from "../Pages/Filter";
+import FilterMovie from "../Pages/FilterMovie";
+import FilterTV from "../Pages/FilterTV";
 import Genre from "../Pages/Genre";
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
-    path: "/filter",
-    element: <Filter />,
+    path: "/filter/movie/:sortParams",
+    element: <FilterMovie />,
+  },
+  {
+    path: "/filter/tv/:sortParams",
+    element: <FilterTV />,
   },
   {
     path: "/genre/:id",
