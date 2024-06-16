@@ -6,7 +6,7 @@ import KeyAPI from "../../Helpers/KeyAPI";
 import { Avatar, List, message } from "antd";
 import { Link, useParams } from "react-router-dom";
 
-export default function Credit ({
+export default function Credit({
   currentData,
   callBackWriter,
   callBackDirector,
@@ -38,10 +38,9 @@ export default function Credit ({
         setLoading(false);
       });
   }
-  
-    callBackWriter(writerFilter);
-    callBackDirector(directorFilter);
-  
+
+  callBackWriter(writerFilter);
+  callBackDirector(directorFilter);
 
   const DataActing = dataCredit.slice(0, 11);
   return (
@@ -55,12 +54,14 @@ export default function Credit ({
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  <Avatar src={`${SRCimg}${item.profile_path}`} size={80} />
+                  <Link to={`/credit/${item.id}`}>
+                    <Avatar src={`${SRCimg}${item.profile_path}`} size={80} />
+                  </Link>
                 }
                 title={
-                  <p className="title-name">
-                    Name: <span>{item.name}</span>
-                  </p>
+                  <Link to={`/credit/${item.id}`} className="title-name">
+                    Name: {item.name}
+                  </Link>
                 }
                 description={
                   <p>

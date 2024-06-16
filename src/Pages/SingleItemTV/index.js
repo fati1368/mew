@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
+import Recommendations from "../../Components/Recommendations";
 import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import { DetailMovie } from "../../Components/DetailMovie";
@@ -11,7 +12,6 @@ import { palette } from "../../Style/Theme";
 import TitleSingleItemTV from "../../Components/TitleSingleItemTV";
 import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
-import Recommendations from "../../Components/recommendations";
 
 export default function SingleItemTV() {
   const { id } = useParams();
@@ -23,7 +23,7 @@ export default function SingleItemTV() {
   useEffect(() => {
     getAPI();
     setLoading(true);
-  }, [id ]);
+  }, [id]);
   function getAPI() {
     API.get(`tv/${id}?${KeyAPI}`)
       .then(function (res) {

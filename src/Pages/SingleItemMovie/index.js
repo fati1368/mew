@@ -11,7 +11,7 @@ import { palette } from "../../Style/Theme";
 import TitleSingleItemMovie from "../../Components/TitleSingleItemMovie";
 import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
-import Recommendations from "../../Components/recommendations";
+import Recommendations from "../../Components/Recommendations";
 
 export default function SingleItemMovie() {
   const { id } = useParams();

@@ -20,7 +20,7 @@ export function DetailMovie({
   currentData,
 }) {
   const { id } = useParams();
-  const formattedDate = format(new Date(dateRelease), "MM/dd/yyyy");
+  ;
   const [dataSocialLink, setDataSocialLink] = useState({});
   const [loading, setLoading] = useState(false);
   const { facebook_id, imdb_id, instagram_id, twitter_id } = dataSocialLink;
@@ -30,7 +30,7 @@ export function DetailMovie({
     title,
     name,
     adult,
-    runtime,
+    runtime="",
     tagline,
     overview,
     homepage,
@@ -59,6 +59,7 @@ export function DetailMovie({
         setLoading(false);
       });
   }
+  const formattedDate =dateRelease==Number? format(new Date(dateRelease), "MM/dd/yyyy"):""
   function renderGenre() {
     return genres.map(({ id, name }) => {
       return <span key={id}> {name},</span>;

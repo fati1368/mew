@@ -5,6 +5,7 @@ import SingleItemTV from "../Pages/SingleItemTV";
 import Search from "../Pages/Search";
 import FilterMovie from "../Pages/FilterMovie";
 import FilterTV from "../Pages/FilterTV";
+import CreditSingle from "../Pages/CreditSingle";
 import Genre from "../Pages/Genre";
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/TV/:id",
     element: <SingleItemTV />,
+  },
+  {
+    path: "/credit/:id",
+    element: <CreditSingle />,
   },
   {
     path: "/search",

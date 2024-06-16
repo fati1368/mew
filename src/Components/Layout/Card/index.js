@@ -15,7 +15,7 @@ export default function Card({ dataAPI, mediaType }) {
         title,
         poster_path,
         media_type,
-        release_date,
+        release_date="",
         genre_ids =[],
         first_air_date,
         vote_average,
