@@ -14,7 +14,7 @@ import Video from "../../Components/Video";
 import Recommendations from "../../Components/CombinedCredits";
 import CombinedCredits from "../../Components/CombinedCredits";
 
-export default function CreditSingle() {
+export default function SingleItemCredit () {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
