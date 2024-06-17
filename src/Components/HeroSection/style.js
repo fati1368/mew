@@ -5,7 +5,7 @@ const Style = styled.div`
 .hero-container {
   mask-image: linear-gradient(to left, black, transparent 65%);
   height: 100vh;
-  width:100vw;
+  width:100%;
   overflow: hidden;
   .hero-video {
     width: 100%;

@@ -169,5 +169,32 @@ const GlobalStyle = createGlobalStyle`
     a{
     &:hover{
     color:${palette.fontColorSection}}}
+  *::-webkit-scrollbar {
+      height: 10px;
+  width: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #DFE9EB;
+}
+    *::-webkit-scrollbar-track:hover {
+  background-color: #B8C0C2;
+}
+  *::-webkit-scrollbar-track:active {
+  background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #e7c252;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #e7c252;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #e7c252;
+}
   `;
 export default GlobalStyle;

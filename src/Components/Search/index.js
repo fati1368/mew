@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import IConSearch from "../../Animation&Icon/Search";
@@ -12,6 +12,18 @@ export default function Search({ callBack }) {
   const [data, setData] = useState();
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(true);
+  const ref = useRef(null)
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setShowResults(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
   function handleSearch(e) {
     const query = e.target.value.trim();
     if (query.length >= 3) {
@@ -70,7 +82,7 @@ export default function Search({ callBack }) {
           />
         </div>
         {showResults && (
-          <div className="absolute search-box">
+          <div ref={ref} className="absolute search-box">
             <ul>{renderResult()}</ul>
           </div>
         )}
@@ -78,3 +90,4 @@ export default function Search({ callBack }) {
     </Style>
   );
 }
+

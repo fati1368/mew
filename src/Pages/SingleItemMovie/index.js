@@ -1,5 +1,5 @@
-import { useState, useEffect, Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect, Fragment   } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
@@ -12,6 +12,7 @@ import TitleSingleItemMovie from "../../Components/TitleSingleItemMovie";
 import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
 import Recommendations from "../../Components/Recommendations";
+import { useNavigate } from "react-router-dom";
 
 export default function SingleItemMovie() {
   const { id } = useParams();
@@ -19,11 +20,16 @@ export default function SingleItemMovie() {
   const [data, setData] = useState({});
   const [writerFilter, setWriterFilter] = useState([]);
   const [directorFilter, setDirectorFilter] = useState([]);
+  const location = useLocation();
+
+  const navigate = useNavigate();
+  API.initialize(navigate);
 
   useEffect(() => {
     getAPI();
     setLoading(true);
-  }, [id]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id, location]);
   function getAPI() {
     API.get(`movie/${id}?${KeyAPI}`)
       .then(function (res) {

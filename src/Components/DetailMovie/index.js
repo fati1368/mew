@@ -59,7 +59,7 @@ export function DetailMovie({
         setLoading(false);
       });
   }
-  const formattedDate =dateRelease==Number? format(new Date(dateRelease), "MM/dd/yyyy"):""
+  const formattedDate =dateRelease==Number? format(new Date(dateRelease), "MM/dd/yyyy") : "" ;
   function renderGenre() {
     return genres.map(({ id, name }) => {
       return <span key={id}> {name},</span>;
