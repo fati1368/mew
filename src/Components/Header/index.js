@@ -26,10 +26,9 @@ export default function Header() {
     };
   }, [callBack]);
   return (
-    <Style>
-      <header className="relative" style={{zIndex:"10"}}>
+      <Style>
         <div
-          className={`container flex space-between align-center fixed  ${
+          className={`fixed container-full  flex space-between align-center   ${
             isScrolled ? "blurMenu" : ""
           }
           ${callBack ? "minHeight" : ""}`}
@@ -42,7 +41,6 @@ export default function Header() {
           </div>
           <MenuHeader menuItems={menuData} />
         </div>
-      </header>
-    </Style>
+      </Style>
   );
 }

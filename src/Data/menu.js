@@ -6,22 +6,22 @@ export const menuData = [
       {
         key: "1",
         label: "Popular",
-        link: "/",
+        link: "/filter/movie/popularity.asc",
       },
       {
         key: "2",
         label: "Now Playing",
-        link: "/",
+        link: "/bestList/movie/now_playing",
       },
       {
         key: "3",
         label: "UpComing",
-        link: "/",
+        link: "/bestList/movie/upcoming",
       },
       {
         key: "4",
         label: "Top Rated",
-        link: "/",
+        link: "/bestList/movie/top_rated",
       },
     ],
   },
@@ -32,22 +32,22 @@ export const menuData = [
       {
         key: "1",
         label: "Popular",
-        link: "/",
+        link: "/filter/tv/popularity.asc",
       },
       {
         key: "2",
         label: "Airing Today",
-        link: "/",
+        link: "/bestList/tv/airing_today",
       },
       {
         key: "3",
         label: "On TV",
-        link: "/",
+        link: "/bestList/tv/on_the_air",
       },
       {
         key: "4",
         label: "Top Rated",
-        link: "/",
+        link: "/bestList/tv/top_rated",
       },
     ],
   },
@@ -58,7 +58,7 @@ export const menuData = [
       {
         key: "1",
         label: "Popular People",
-        link: "/",
+        link: "/personPopular",
       },
     ],
   },
@@ -68,8 +68,8 @@ export const menuData = [
     subMenus: [
       {
         key: "1",
-        label: "Popular People",
-        link: "/",
+        label: "Genre",
+        link: "/filter/tv/popularity.asc",
       },
     ],
   },
@@ -77,65 +77,70 @@ export const menuData = [
 export const footerData = [
   {
     title: "Movie ",
-    id: "1a",
+    id: "1",
     subMenus: [
       {
-        key: "1aa",
+        key: "1",
         label: "Popular",
-        link: "/",
+        link: "/filter/movie/popularity.asc",
       },
       {
-        key: "2aa",
+        key: "2",
         label: "Now Playing",
-        link: "/",
+        link: "/bestList/movie/now_playing",
       },
       {
-        key: "3aa",
+        key: "3",
         label: "UpComing",
-        link: "/",
+        link: "/bestList/movie/upcoming",
       },
       {
-        key: "4aa",
+        key: "4",
         label: "Top Rated",
-        link: "/",
+        link: "/bestList/movie/top_rated",
       },
     ],
   },
   {
     title: "TV show",
-    id: "2b",
+    id: "2",
     subMenus: [
       {
-        key: "1bb",
+        key: "1",
         label: "Popular",
-        link: "/",
+        link: "/filter/tv/popularity.asc",
       },
       {
-        key: "2bb",
+        key: "2",
         label: "Airing Today",
-        link: "/",
+        link: "/bestList/tv/airing_today",
       },
       {
-        key: "3bb",
+        key: "3",
         label: "On TV",
-        link: "/",
+        link: "/bestList/tv/on_the_air",
       },
       {
-        key: "4bb",
+        key: "4",
         label: "Top Rated",
-        link: "/",
+        link: "/bestList/tv/top_rated",
       },
     ],
   },
 
   {
-    title: "Contact Info",
-    id: "3c",
+    title: "More",
+    id: "3",
     subMenus: [
       {
-        key: "1ac",
-        label: "About",
-        link: "/",
+        key: "2",
+        label: "People",
+        link: "/personPopular",
+      },
+      {
+        key: "1",
+        label: "Genre",
+        link: "/filter/tv/popularity.asc",
       },
     ],
   },

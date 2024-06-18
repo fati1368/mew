@@ -1,12 +1,17 @@
 import axios from "axios";
-import { useNavigate } from 'react-router-dom'
+
+
 let globalRouter;
+
 const API = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
 });
+
 API.initialize = (navigateFunction) => {
   globalRouter = navigateFunction;
 };
+
+
 API.interceptors.response.use(
   function (response) {
     return response;

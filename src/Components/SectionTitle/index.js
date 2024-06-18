@@ -2,6 +2,7 @@ import { useState } from "react";
 import Style from "./style";
 import { Radio } from "antd";
 import { Link } from "react-router-dom";
+import { CaretRightFilled } from "@ant-design/icons";
 
 export default function SectionTitle({
   title,
@@ -12,7 +13,7 @@ export default function SectionTitle({
   colorTitle,
   link,
 }) {
-  const [placement, SetPlacement] = useState("day");
+  const [placement, SetPlacement] = useState("");
   const placementChange = (e) => {
     const selectedPlacement = e.target.value;
     SetPlacement(selectedPlacement);
@@ -22,33 +23,39 @@ export default function SectionTitle({
     return filterBottom.map(({ id, value, Name }) => {
       return (
         <span key={id}>
-          <Radio.Button value={value}>{Name}</Radio.Button>
+          <Radio.Button Checked value={value}>{Name}</Radio.Button>
         </span>
       );
     });
   }
   return (
-    <Style>
-      <div className=" bg section-space relative">
-        <div className="container relative">
-          <div className="sectionTitle pb-5">
-            <h2 style={{ color: `${colorTitle}` }}>{title}</h2>
-            <h4>{subTitleOne}</h4>
-            <h4>{subTitleTwo}</h4>
-          </div>
-          <div>
-
-          <Radio.Group
-            className="mb-3"
-            value={placement}
-            onChange={placementChange}
-            >
-            {render()}
-          </Radio.Group>
-          <Link to={link}>all</Link>
+    <div className="title-section">
+      <Style>
+        <div className="container">
+          <div className=" bg section-space relative">
+            <div className=" relative">
+              <div className="sectionTitle pb-3">
+                <h2 style={{ color: `${colorTitle}` }}>{title}</h2>
+                <h4>{subTitleOne}</h4>
+                <h4>{subTitleTwo}</h4>
+              </div>
+              <div className="flex mb-1 space-between align-center">
+                <Radio.Group
+                  value={placement}
+                  onChange={placementChange}
+                  size="large"
+                >
+                  {render()}
+                </Radio.Group>
+                <Link className="flex align-center" to={link}>
+                  <h3>more</h3>{" "}
+                  <CaretRightFilled style={{ fontSize: "2rem" }} />
+                </Link>
+              </div>
             </div>
+          </div>
         </div>
-      </div>
-    </Style>
+      </Style>
+    </div>
   );
 }

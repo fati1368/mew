@@ -20,9 +20,15 @@ const Style = styled.div`
   top:20%;
   left:5%;
   transform:translate X Y (-50%,-50%);
-  z-index:-1;
+  z-index:1;
   p {
     font-size: 2rem;
   }
+    a{
+    &:hover{
+    background:${palette.fontColorSection} !important;
+    color:${palette.primaryColor} !important;
+    border-color:${palette.fontColor} !important;
+    }}
 `;
 export default Style;

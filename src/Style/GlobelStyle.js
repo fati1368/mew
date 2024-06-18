@@ -26,9 +26,9 @@ const GlobalStyle = createGlobalStyle`
     color:${palette.fontColor}
   }
   .container {
-    width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 10px 10px 0 10px;
+    padding: 10px;
   }
 
   .flex{
@@ -196,5 +196,20 @@ const GlobalStyle = createGlobalStyle`
 *::-webkit-scrollbar-thumb:active {
   background-color: #e7c252;
 }
+   @media (max-width: 1200px) {
+    .container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+   }
+
+   @media (max-width: 600px) {
+   h1{
+   font-size:5rem;}
+   
+   h2{
+   font-size:3rem;
+}}
   `;
 export default GlobalStyle;

@@ -115,11 +115,11 @@ export default function FilterMovie() {
             value={sortParams}
             onChange={ChangeSort}
           >
-            <Radio.Button value="title.asc">All</Radio.Button>
-            <Radio.Button value="vote_average.asc">Top Rated</Radio.Button>
-            <Radio.Button value="popularity.asc">Popular</Radio.Button>
-            <Radio.Button value="primary_release_date.asc">
-              Now Playing movie
+            <Radio.Button value="title.desc">All</Radio.Button>
+            <Radio.Button value="vote_average.desc"> Vote</Radio.Button>
+            <Radio.Button value="popularity.desc">Popular</Radio.Button>
+            <Radio.Button value="primary_release_date.desc">
+              Future Playing movie
             </Radio.Button>
           </Radio.Group>
         </div>

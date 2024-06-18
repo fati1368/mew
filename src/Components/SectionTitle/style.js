@@ -1,39 +1,40 @@
 import styled from "styled-components";
 import { palette, type } from "../../Style/Theme";
 const Style = styled.div`
-.section-space {
-  padding-top: 15rem  ;
-}  
-.sectionTitle {
+  .section-space {
+    padding-top: 15rem;
+  }
+  .sectionTitle {
     text-align: center;
     line-height: 1.5;
     text-transform: lowercase;
     h2 {
-      font-size: 8em;
+      font-size: 9rem;
       text-transform: uppercase;
+      text-align: center;
     }
   }
+  .ant-radio-button-wrapper {
+    background-color: ${palette.thirdColor};
+    &:hover {
+      color: ${palette.fontColor};
+    }
+  }
+  .ant-radio-button-wrapper-checked {
+    background-color: ${palette.primaryColor};
+    color: ${palette.thirdColor};
+    border-color: ${palette.thirdColor} !important;
+  }
 
-  // .bg{
-  //     &::before{
-  //         content:"";
-  //         background-color: rgba(0, 0, 0, 0.9);
-  //         position: absolute;
-  //         top: 0;
-  //         left: 0;
-  //         width: 100%;
-  //         height: 100%;
-  //         z-index:0;
-  //     }
-  //     background:url(./assets/Image/trend.jpg) ;
-  //  .title{
-  //      position: relative;
-  //      display: inline-block;
-  //    width: 100%;
-  //     vertical-align: top;
-  //      text-align: left;
-  //    padding: 0 30px;
-  // }
-  //     }
+  @media (max-width: 600px) {
+    .sectionTitle {
+      h2 {
+        font-size: 5rem;
+      }
+      h4 {
+        font-size: 1.5rem;
+      }
+    }
+  }
 `;
 export default Style;

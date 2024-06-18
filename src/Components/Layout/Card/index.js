@@ -28,7 +28,7 @@ export default function Card({ dataAPI, mediaType }) {
               <div className=" containerCard  ">
                 <div
                   className="front "
-                  style={{ backgroundImage: `url(${SRCimg}${poster_path})` }}
+                  style={{ background: `lightblue  url(${SRCimg}${poster_path})  ` , backgroundSize: 'cover' }}
                 >
                   <div className="inner">
                     <p>{currentData === "movie" ? title : name}</p>

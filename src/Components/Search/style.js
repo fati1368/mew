@@ -7,18 +7,10 @@ const Style = styled.div`
       display: block;
       opacity: 1;
     }
-    &:hover  {
-      right: -200px;
-      bottom: 0;
-    }
     &.active input {
       visibility: visible;
       display: flex;
       opacity: 1;
-    }
-    &.active {
-      right: -200px;
-      bottom: 0;
     }
     .iconSearch 
       cursor: pointer;
@@ -50,6 +42,8 @@ const Style = styled.div`
     p {
       color: ${palette.primaryColor};
     }
+      p:hover{
+      background-color:${palette.thirdColor}}
   }
   
 `;

@@ -7,7 +7,7 @@ import Search from "../Pages/Search";
 import FilterMovie from "../Pages/FilterMovie";
 import FilterTV from "../Pages/FilterTV";
 import SingleItemCredit from "../Pages/SingleItemCredit";
-import Genre from "../Pages/Genre";
+import BestList from "../Pages/BestList";
 import FilterTrend from "../Pages/FilterTrend";
 import NotFound from "../Pages/NotFound";
 
@@ -49,8 +49,8 @@ const router = createBrowserRouter([
     element: <FilterTrend />,
   },
   {
-    path: "/genre/:id",
-    element: <Genre />,
+    path: "/bestList/:TypeParams/:ListParams",
+    element: <BestList />,
   },
   {
     path: "*",

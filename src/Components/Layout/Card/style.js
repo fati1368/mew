@@ -111,7 +111,11 @@ const Style = styled.div`
     }
   }
 
-
+  @media (max-width: 600px) {
+    .col {
+    margin: 0 auto;
+    padding: 10px;
+  }
  
 `;
 export default Style;

@@ -1,18 +1,26 @@
-import { useEffect, useState,useRef } from "react";
-import axios from "axios";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import IConSearch from "../../Animation&Icon/Search";
 import Style from "./style";
 import KeyAPI from "../../Helpers/KeyAPI";
 import API from "../../Helpers/API";
-import alertError from "../../Helpers/AlertError";
+import {  message } from 'antd';
 
 export default function Search({ callBack }) {
   const navigate = useNavigate();
   const [data, setData] = useState();
   const [showResults, setShowResults] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const ref = useRef(null)
+  const [inputValue, setInputValue] = useState("");
+  const [messageApi, messageContext] = message.useMessage();
+  callBack(showResults);
+
+  const warning = () => {
+    messageApi.open({
+      type: 'warning',
+      content: 'please try again later',
+    });
+  };
+  const ref = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -20,35 +28,31 @@ export default function Search({ callBack }) {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+   
   }, [ref]);
-  function handleSearch(e) {
+
+  async function handleSearch(e) {
     const query = e.target.value.trim();
     if (query.length >= 3) {
-      callBack(query);
-      API.get(
-        `search/multi?${KeyAPI}&query=${query}&include_adult=false&language=en-US&page=1`
-      )
-        .then((res) => {
-          setData(res.data.results);
-          setShowResults(true);
-          setLoading(false);
-        })
-        .catch((err) => {
-          alertError();
-          setLoading(false);
-        });
+      try {
+        const res =await API.get(`search/multi?${KeyAPI}&query=${query}`);
+        setData(res.data.results);
+        setShowResults(true);
+      } catch (err) {
+        warning()
+      }
     } else {
       setData([]);
       setShowResults(false);
     }
+    setInputValue(query);
+  }
+  function onEnter(e) {
+    if (e.key === "Enter") {
+      navigate(`/search?name=${e.target.value}&page=1`);
+    }
   }
   function renderResult() {
-    if (loading === true) {
-      return <p>Please waite</p>;
-    }
     return data.map(({ name, id }) => {
       return (
         <li key={id}>
@@ -59,35 +63,35 @@ export default function Search({ callBack }) {
       );
     });
   }
-  function onEnter(e) {
-    if (e.key === "Enter") {
-      navigate(`/search?name=${e.target.value}`);
-    }
-  }
   return (
-    <Style>
-      <div className="relative">
-        <div
-          className={` searchInput flex space-between align-center ${
-            showResults ? "active" : ""
-          }`}
-        >
-          <Link className=" iconSearch" to={`/search`}>
-            <IConSearch />
-          </Link>
-          <input
-            onKeyDown={onEnter}
-            onChange={handleSearch}
-            placeholder="Find Movies & Series"
-          />
-        </div>
-        {showResults && (
-          <div ref={ref} className="absolute search-box">
-            <ul>{renderResult()}</ul>
+    <div className="Search">
+      <Style>
+      {messageContext}
+        <div className="relative">
+          <div
+            className={` searchInput flex space-between align-center ${
+              showResults ? "active" : ""
+            }`}
+          >
+            <Link
+              className=" iconSearch"
+              to={`/search?name=${inputValue}&page=1`}
+            >
+              <IConSearch />
+            </Link>
+            <input
+              onKeyDown={onEnter}
+              onChange={handleSearch}
+              placeholder="Find Movies & Series"
+            />
           </div>
-        )}
-      </div>
-    </Style>
+          {showResults && (
+            <div ref={ref} className="absolute search-box">
+              <ul>{renderResult()}</ul>
+            </div>
+          )}
+        </div>
+      </Style>
+    </div>
   );
 }
-
