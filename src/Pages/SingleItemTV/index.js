@@ -12,6 +12,8 @@ import { palette } from "../../Style/Theme";
 import TitleSingleItemTV from "../../Components/TitleSingleItemTV";
 import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
+import { FloatButton } from "antd";
+import ScrollTop from "../../Helpers/ScrollTop";
 
 export default function SingleItemTV() {
   const { id } = useParams();
@@ -22,6 +24,7 @@ export default function SingleItemTV() {
 
   useEffect(() => {
     getAPI();
+    ScrollTop();
     setLoading(true);
   }, [id]);
   function getAPI() {
@@ -80,6 +83,7 @@ export default function SingleItemTV() {
           <Recommendations currentData="tv" />
         </section>
       )}
+      <FloatButton.BackTop />
     </PrimaryLayout>
   );
 }

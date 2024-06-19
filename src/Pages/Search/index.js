@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
+import { FloatButton } from "antd";
+import ScrollTop from "../../Helpers/ScrollTop";
+import Loading from "../../Components/Loading";
+
 import {
   useSearchParams,
   createSearchParams,
@@ -14,6 +18,7 @@ import { Button, Radio, Pagination, List, Input } from "antd";
 import Card from "../../Components/Layout/Card";
 import CardPerson from "../../Components/Layout/CardPerson";
 import CardCollection from "../../Components/Layout/CardCollection";
+import { message } from "antd";
 
 export default function Search() {
   const [queryName, setQueryName] = useSearchParams();
@@ -25,12 +30,21 @@ export default function Search() {
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const [placement, SetPlacement] = useSearchParams("multi");
+  const [messageApi, messageContext] = message.useMessage();
+  const [loading, setLoading] = useState(true);
 
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "please try again later",
+    });
+  };
   useEffect(
     function () {
       getAPI(
         queryName.get("name") && queryName.get("name") !== "",
-        queryPage.get("page")
+        queryPage.get("page"),
+        ScrollTop()
       );
     },
     [queryPage, placement]
@@ -80,6 +94,8 @@ export default function Search() {
       );
     } catch (error) {
       console.error("Error data:", error);
+      warning();
+      setLoading(false);
     }
   }
 
@@ -184,6 +200,7 @@ export default function Search() {
           </div>
         </div>
       </Style>
+      <FloatButton.BackTop />
     </PrimaryLayout>
   );
 }

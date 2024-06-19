@@ -1,7 +1,9 @@
-import { Button, Row, Col } from "antd";
-import { Fragment, useEffect, useState, useRef } from "react";
+import {  useEffect, useState, useRef } from "react";
+import { FloatButton } from "antd";
+import ScrollTop from "../../Helpers/ScrollTop";
+import Loading from "../../Components/Loading";
+import { message } from "antd";
 import {
-  Link,
   useParams,
   useNavigate,
   useSearchParams,
@@ -20,10 +22,18 @@ export default function FilterTrend() {
   const { typeParams } = useParams();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [messageApi, messageContext] = message.useMessage();
 
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "please try again later",
+    });
+  };
   useEffect(
     function () {
       getAPI();
+      ScrollTop();
     },
     [timeParams, typeParams]
   );
@@ -38,7 +48,8 @@ export default function FilterTrend() {
       );
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      warning();
+      setLoading(false);
     }
   }
 
@@ -82,6 +93,8 @@ export default function FilterTrend() {
           </div>
         </div>
       </Style>
+      <FloatButton.BackTop />
+
     </PrimaryLayout>
   );
 }

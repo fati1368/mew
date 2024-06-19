@@ -1,20 +1,21 @@
-import { Button, Row, Col } from "antd";
-import { Fragment, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
+import { FloatButton } from "antd";
+import ScrollTop from "../../Helpers/ScrollTop";
+import Loading from "../../Components/Loading";
+
 import {
-  Link,
   useParams,
   useNavigate,
   useSearchParams,
   createSearchParams,
 } from "react-router-dom";
-import axios from "axios";
-import MovieListByGenre from "../../Components/MovieListByGenre";
 import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import { Radio, Pagination, List, Space } from "antd";
 import Card from "../../Components/Layout/Card";
 import Style from "./style";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
+import { message } from "antd";
 
 export default function FilterMovie() {
   const [genreMovie, setGenreMovie] = useState([]);
@@ -24,7 +25,15 @@ export default function FilterMovie() {
   const [loading, setLoading] = useState(true);
   const [idGenre, setIdGenre] = useSearchParams("");
   const [queryPage, setQueryPage] = useSearchParams("1");
+  const [messageApi, messageContext] = message.useMessage();
+
   const navigate = useNavigate();
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "please try again later",
+    });
+  };
   useEffect(function () {
     getGenre();
   }, []);
@@ -32,6 +41,7 @@ export default function FilterMovie() {
   useEffect(
     function () {
       getAPI(queryPage.get("page"), idGenre.get("genres"));
+      ScrollTop();
     },
     [sortParams, idGenre, queryPage]
   );
@@ -42,7 +52,8 @@ export default function FilterMovie() {
       setGenreMovie(resMovie.data.genres);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      warning();
+      setLoading(false);
     }
   }
   async function getAPI(page, genre) {
@@ -60,25 +71,26 @@ export default function FilterMovie() {
       setCurrentPage(resFilter.data);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      warning();
+      setLoading(false);
     }
   }
+  const formattedName = `${sortParams}`.replace(/_/g, " ").replace(".desc", "");
 
   function renderGenre() {
     return genreMovie.map(({ id, name }) => {
       return (
-        <Radio.Button key={id} value={id}>
+        <Radio.Button checked	 key={id} value={id}>
           {name}
         </Radio.Button>
       );
     });
   }
-
   const ChangeGenreID = (e) => {
     const movieID = e.target.value;
     setIdGenre(
       createSearchParams({
-        genre: movieID,
+        genres: movieID,
         page: "1",
       })
     );
@@ -106,41 +118,56 @@ export default function FilterMovie() {
 
   return (
     <PrimaryLayout>
-    <Style>
-      <div className="mt-5 container">
-        <h1 className="pt-5 pb-5 ">Filter Movie</h1>
-        <div className="flex " style={{ justifyContent: "center" }}>
-          <Radio.Group
-            className="mb-3"
-            value={sortParams}
-            onChange={ChangeSort}
-          >
-            <Radio.Button value="title.desc">All</Radio.Button>
-            <Radio.Button value="vote_average.desc"> Vote</Radio.Button>
-            <Radio.Button value="popularity.desc">Popular</Radio.Button>
-            <Radio.Button value="primary_release_date.desc">
-              Future Playing movie
-            </Radio.Button>
-          </Radio.Group>
-        </div>
-        <div className="flex">
-          <div className="mb-3 col-2">
-            <Radio.Group value={idGenre} onChange={ChangeGenreID}>
-              <Space direction="vertical">{renderGenre()}</Space>
-            </Radio.Group>
+      <section className="Filter-movie">
+        <Style>
+          <div className="mt-5 container">
+            <h1 className="pt-5 pb-5 ">
+              Filter <span>{formattedName}</span> Movie
+            </h1>
+            <div className="flex " style={{ justifyContent: "center" }}>
+              <Radio.Group
+                className="mb-3"
+                value={sortParams}
+                onChange={ChangeSort}
+                size="large"
+              >
+                <Radio.Button value="title.desc">All</Radio.Button>
+                <Radio.Button value="vote_average.desc"> Vote</Radio.Button>
+                <Radio.Button value="popularity.desc">Popular</Radio.Button>
+                <Radio.Button value="primary_release_date.desc">
+                  Future Playing movie
+                </Radio.Button>
+              </Radio.Group>
+            </div>
+            <div className="flex">
+              <div className="all-genre mb-3 col-2">
+                <Radio.Group
+                  size="large"
+                  value={idGenre}
+                  onChange={ChangeGenreID}
+                  
+                >
+                  <Space direction="vertical">{renderGenre()}</Space>
+                </Radio.Group>
+              </div>
+              <div className="col-10">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  <Card dataAPI={data} mediaType="movie" />
+                )}
+              </div>
+            </div>
+            <Pagination
+              onChange={onPageChange}
+              Current={currentPage.page}
+              total={currentPage.total_pages}
+              style={{ colorText: "#FFF" }}
+            />
           </div>
-          <div className="col-10">
-            <Card dataAPI={data} mediaType="movie" />
-          </div>
-        </div>
-        <Pagination
-          onChange={onPageChange}
-          Current={currentPage.page}
-          total={currentPage.total_pages}
-          style={{ colorText: "#FFF" }}
-        />
-      </div>
-    </Style>
+        </Style>
+      </section>
+      <FloatButton.BackTop />
     </PrimaryLayout>
   );
 }

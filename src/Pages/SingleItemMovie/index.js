@@ -13,6 +13,9 @@ import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
 import Recommendations from "../../Components/Recommendations";
 import { useNavigate } from "react-router-dom";
+import { FloatButton } from "antd";
+import ScrollTop from "../../Helpers/ScrollTop";
+
 
 export default function SingleItemMovie() {
   const { id } = useParams();
@@ -28,7 +31,7 @@ export default function SingleItemMovie() {
   useEffect(() => {
     getAPI();
     setLoading(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    ScrollTop();
   }, [id, location]);
   function getAPI() {
     API.get(`movie/${id}?${KeyAPI}`)
@@ -86,6 +89,8 @@ export default function SingleItemMovie() {
           <Recommendations currentData="movie" />
         </section>
       )}
+            <FloatButton.BackTop />
+
     </PrimaryLayout>
   );
 }

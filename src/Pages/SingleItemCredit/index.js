@@ -13,6 +13,8 @@ import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
 import Recommendations from "../../Components/CombinedCredits";
 import CombinedCredits from "../../Components/CombinedCredits";
+import { FloatButton } from "antd";
+import ScrollTop from "../../Helpers/ScrollTop";
 
 export default function SingleItemCredit () {
   const { id } = useParams();
@@ -21,6 +23,7 @@ export default function SingleItemCredit () {
 
   useEffect(() => {
     getAPI();
+    ScrollTop();
     setLoading(true);
   }, [id]);
   async function getAPI() {
@@ -48,6 +51,8 @@ export default function SingleItemCredit () {
           <CombinedCredits />
         </section>
       )}
+            <FloatButton.BackTop />
+
     </PrimaryLayout>
   );
 }

@@ -68,8 +68,15 @@ export const menuData = [
     subMenus: [
       {
         key: "1",
-        label: "Genre",
-        link: "/filter/tv/popularity.asc",
+        label: "Genre Movie",
+        link: "/filter/tv/popularity.desc",
+        
+      },
+      {
+        key: "2",
+        label: "Genre TV",
+        link: "/filter/movie/popularity.desc",
+        
       },
     ],
   },
@@ -133,14 +140,21 @@ export const footerData = [
     id: "3",
     subMenus: [
       {
-        key: "2",
+        key: "1",
         label: "People",
         link: "/personPopular",
       },
       {
-        key: "1",
-        label: "Genre",
-        link: "/filter/tv/popularity.asc",
+        key: "2",
+        label: "Genre Movie",
+        link: "/filter/tv/popularity.desc",
+        
+      },
+      {
+        key: "3",
+        label: "Genre TV",
+        link: "/filter/movie/popularity.desc",
+        
       },
     ],
   },

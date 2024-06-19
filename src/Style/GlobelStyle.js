@@ -169,6 +169,13 @@ const GlobalStyle = createGlobalStyle`
     a{
     &:hover{
     color:${palette.fontColorSection}}}
+     .shadow {
+      margin-top: 15em;
+      box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+      width: 100%;
+      height: 1px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
   *::-webkit-scrollbar {
       height: 10px;
   width: 10px;
@@ -196,6 +203,25 @@ const GlobalStyle = createGlobalStyle`
 *::-webkit-scrollbar-thumb:active {
   background-color: #e7c252;
 }
+   .ant-pagination {
+  .ant-pagination-item-active{
+  background-color: ${palette.secondaryColor};
+        color: ${palette.primaryColor};
+
+  }
+    .ant-pagination-item {
+    &:hover{
+    a{
+      color: ${palette.primaryColor};
+    }
+    }
+      background-color: ${palette.primaryColor};
+      border-color: ${palette.thirdColor} !important;
+      a {
+        color: ${palette.thirdColor};
+      }
+    }
+  }
    @media (max-width: 1200px) {
     .container {
     width: 90%;

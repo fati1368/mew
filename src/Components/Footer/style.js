@@ -15,13 +15,7 @@ const Style = styled.footer`
       font-size: 1.7rem;
       color: ${palette.fontColorSection};
     }
-    .shadow {
-      margin-top: 15em;
-      box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
-      width: 100%;
-      height: 5px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
+   
     .Contact {
       margin-left: 4em;
       .basic {
