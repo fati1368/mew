@@ -1,4 +1,4 @@
-import {  useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FloatButton } from "antd";
 import ScrollTop from "../../Helpers/ScrollTop";
 import Loading from "../../Components/Loading";
@@ -37,7 +37,7 @@ export default function FilterTrend() {
     },
     [timeParams, typeParams]
   );
-  async function getAPI( ) {
+  async function getAPI() {
     try {
       const resFilter = await API.get(
         `trending/${typeParams}/${timeParams}?${KeyAPI}
@@ -55,46 +55,58 @@ export default function FilterTrend() {
 
   const ChangeType = (e) => {
     const TypeCurrent = e.target.value;
-    navigate(`/filter/trend/${timeParams}/${TypeCurrent}`)
-
+    navigate(`/filter/trend/${timeParams}/${TypeCurrent}`);
   };
   const ChangeTime = (e) => {
     const timeFilter = e.target.value;
-     navigate(`/filter/trend/${timeFilter}/${typeParams}`)
+    navigate(`/filter/trend/${timeFilter}/${typeParams}`);
   };
   return (
     <PrimaryLayout>
-      <Style>
-        <div className="mt-5 container">
-          <h1 className="pt-5 pb-5 ">Trend</h1>
-          <div className="flex " style={{ justifyContent: "center" }}>
-            <Radio.Group
-              className="mb-3"
-              value={timeParams}
-              onChange={ChangeTime}
-            >
-              <Radio.Button value="day">Day</Radio.Button>
-              <Radio.Button value="week">Week</Radio.Button>
-            </Radio.Group>
-          </div>
-          <div className="flex">
-            <div className="mb-3 col-2">
-              <Radio.Group value={typeParams} onChange={ChangeType}>
-                <Space direction="vertical">
-                  <Radio.Button value="tv">Tv & Series</Radio.Button>
-                  <Radio.Button value="movie">Movie</Radio.Button>
-                  <Radio.Button value="all">All</Radio.Button>
-                </Space>
-              </Radio.Group>
+      <section className="trend">
+        <Style>
+          {messageContext}
+          <div className="mt-5 container">
+            <h1 className="pt-5 pb-5 ">
+              Trend {timeParams}
+              <span> {typeParams}</span>
+            </h1>
+            <div className="list row pb-5 ">
+              <div className="time pb-3">
+                <Radio.Group
+                  size="large"
+                  value={timeParams}
+                  onChange={ChangeTime}
+                >
+                  <Radio.Button value="day">Day</Radio.Button>
+                  <Radio.Button value="week">Week</Radio.Button>
+                </Radio.Group>
+              </div>
+              <div className="type">
+                <Radio.Group
+                  value={typeParams}
+                  onChange={ChangeType}
+                  size="large"
+                >
+                  <Space>
+                    <Radio.Button value="tv">Tv & Series</Radio.Button>
+                    <Radio.Button value="movie">Movie</Radio.Button>
+                    <Radio.Button value="all">All</Radio.Button>
+                  </Space>
+                </Radio.Group>
+              </div>
             </div>
-            <div className="col-10">
-              <Card dataAPI={data} mediaType="" />
-            </div>
-          </div>
-        </div>
-      </Style>
-      <FloatButton.BackTop />
+            <div className="flex">
+              <div>
+                
+                {loading ? <Loading /> :<Card dataAPI={data} mediaType="" />}
 
+              </div>
+            </div>
+          </div>
+        </Style>
+      </section>
+      <FloatButton.BackTop />
     </PrimaryLayout>
   );
 }

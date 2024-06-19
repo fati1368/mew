@@ -68,22 +68,24 @@ export default function PopularPerson() {
 
   return (
     <PrimaryLayout>
-      <Style>
-        <div className="mt-5 container">
-          <h1 className="pt-5 pb-5 ">Popular Person</h1>
-          <div className="col-10">
-            <CardPerson dataAPI={data} />
+      <section className="people">
+        <Style>
+          {messageContext}
+          <div className="mt-5 container">
+            <h1 className="pt-5 pb-5 ">Popular Person</h1>
+            <div className="col-10">
+              {loading ? <Loading /> : <CardPerson dataAPI={data} />}
+            </div>
+            <Pagination
+              onChange={onPageChange}
+              Current={currentPage.page}
+              total={currentPage.total_pages}
+              style={{ colorText: "#FFF" }}
+            />
           </div>
-          <Pagination
-            onChange={onPageChange}
-            Current={currentPage.page}
-            total={currentPage.total_pages}
-            style={{ colorText: "#FFF" }}
-          />
-        </div>
-      </Style>
+        </Style>
+      </section>
       <FloatButton.BackTop />
-
     </PrimaryLayout>
   );
 }

@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../Pages/Home";
-import PopularPerson from "../Pages/PopularPerson";
 import SingleItemMovie from "../Pages/SingleItemMovie";
 import SingleItemTV from "../Pages/SingleItemTV";
 import Search from "../Pages/Search";
 import FilterMovie from "../Pages/FilterMovie";
 import FilterTV from "../Pages/FilterTV";
+import PopularPerson from "../Pages/PopularPerson";
 import SingleItemCredit from "../Pages/SingleItemCredit";
 import BestList from "../Pages/BestList";
 import FilterTrend from "../Pages/FilterTrend";
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <NotFound/>
+    element: <NotFound />,
   },
 ]);
 export default function Routers() {

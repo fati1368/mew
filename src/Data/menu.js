@@ -78,6 +78,12 @@ export const menuData = [
         link: "/filter/movie/popularity.desc",
         
       },
+      {
+        key: "3",
+        label: "Trend",
+        link: "/filter/trend/day/movie",
+        
+      },
     ],
   },
 ];
@@ -154,6 +160,12 @@ export const footerData = [
         key: "3",
         label: "Genre TV",
         link: "/filter/movie/popularity.desc",
+        
+      },
+      {
+        key: "4",
+        label: "Trend",
+        link: "/filter/trend/day/movie",
         
       },
     ],

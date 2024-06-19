@@ -231,6 +231,7 @@ const GlobalStyle = createGlobalStyle`
    }
 
    @media (max-width: 600px) {
+   
    h1{
    font-size:5rem;}
    

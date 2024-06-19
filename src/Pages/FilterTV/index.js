@@ -1,11 +1,8 @@
-import { Button, Row, Col } from "antd";
+import { useEffect, useState, useRef } from "react";
 import { FloatButton } from "antd";
 import ScrollTop from "../../Helpers/ScrollTop";
 import Loading from "../../Components/Loading";
-import { message } from "antd";
-import { Fragment, useEffect, useState, useRef } from "react";
 import {
-  Link,
   useParams,
   useNavigate,
   useSearchParams,
@@ -15,8 +12,9 @@ import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import { Radio, Pagination, List, Space } from "antd";
 import Card from "../../Components/Layout/Card";
-import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 import Style from "./style";
+import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
+import { message } from "antd";
 
 export default function FilterTV() {
   const [genreTV, setGenreTV] = useState([]);
@@ -24,11 +22,11 @@ export default function FilterTV() {
   const [currentPage, setCurrentPage] = useState([]);
   const { sortParams } = useParams();
   const [loading, setLoading] = useState(true);
-  const [idGenre, setIdGenre] = useSearchParams("");
+  const [idGenre, setIdGenre] = useSearchParams("12");
   const [queryPage, setQueryPage] = useSearchParams("1");
-  const navigate = useNavigate();
   const [messageApi, messageContext] = message.useMessage();
 
+  const navigate = useNavigate();
   const warning = () => {
     messageApi.open({
       type: "warning",
@@ -38,6 +36,7 @@ export default function FilterTV() {
   useEffect(function () {
     getGenre();
   }, []);
+
   useEffect(
     function () {
       getAPI(queryPage.get("page"), idGenre.get("genres"));
@@ -48,8 +47,8 @@ export default function FilterTV() {
 
   async function getGenre() {
     try {
-      const resTV = await API.get(`genre/tv/list?${KeyAPI}`);
-      setGenreTV(resTV.data.genres);
+      const res = await API.get(`genre/tv/list?${KeyAPI}`);
+      setGenreTV(res.data.genres);
       setLoading(false);
     } catch (err) {
       warning();
@@ -58,7 +57,8 @@ export default function FilterTV() {
   }
   async function getAPI(page, genre) {
     try {
-      const genreCurrent = genre ? genre : "";
+      const genreCurrent = genre && genre !== "all" ? genre : "";
+
       const resFilter = await API.get(
         `discover/tv?${KeyAPI}&language=en-US&sort_by=${sortParams}&with_genres=${genreCurrent}&page=${
           page ? page : "1"
@@ -67,37 +67,41 @@ export default function FilterTV() {
       setData(
         resFilter.data.results.filter((results) => results.poster_path !== null)
       );
-      console.log(page);
       setCurrentPage(resFilter.data);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      warning();
+      setLoading(false);
     }
   }
+  const formattedName = `${sortParams}`.replace(/_/g, " ").replace(".desc", "");
 
   function renderGenre() {
     return genreTV.map(({ id, name }) => {
       return (
-        <Radio.Button key={id} checked value={id}>
+        <Radio.Button checked key={id} value={id}>
           {name}
         </Radio.Button>
       );
     });
   }
-
   const ChangeGenreID = (e) => {
-    const TvID = e.target.value;
-    setIdGenre(
-      createSearchParams({
-        genres: TvID,
-        page: "1",
-      })
-    );
+    const tvID = e.target.value;
+    tvID === "all"
+      ? navigate(`/filter/tv/${sortParams}?genres=${tvID}&page=1`)
+      : setIdGenre(
+          createSearchParams({
+            genres: tvID,
+            page: "1",
+          })
+        );
   };
   const ChangeSort = (e) => {
     const sortFilter = e.target.value;
     idGenre.get("genres")
-      ? navigate(`/filter/tv/${sortFilter}?genres${idGenre.get("genres")}`)
+      ? navigate(
+          `/filter/tv/${sortFilter}?genres=${idGenre.get("genres")}&page=1`
+        )
       : navigate(`/filter/tv/${sortFilter}`);
   };
   function onPageChange(e) {
@@ -114,45 +118,74 @@ export default function FilterTV() {
           })
         );
   }
+  function genreNames() {
+    try {
+      if (idGenre.get("genres")) {
+        const id = Number(idGenre.get("genres"));
+        const genre = genreTV.find((genre) => genre.id === id);
+        return genre.name;
+      } else {
+        return "All Genre";
+      }
+    } catch (err) {
+      return "All Genre";
+    }
+  }
 
   return (
     <PrimaryLayout>
-      <Style>
-        <div className="mt-5 container">
-          <h1 className="pt-5 pb-5 ">Filter Series & TV</h1>
-          <div className="flex " style={{ justifyContent: "center" }}>
-            <Radio.Group
-              className="mb-3"
-              value={sortParams}
-              onChange={ChangeSort}
-            >
-              <Radio.Button value="name.asc">All</Radio.Button>
-              <Radio.Button value="vote_average.asc">Top Rated</Radio.Button>
-              <Radio.Button value="popularity.asc">Popular</Radio.Button>
-              <Radio.Button value="first_air_date.asc">
-                On Air Series
-              </Radio.Button>
-            </Radio.Group>
-          </div>
-          <div className="flex">
-            <div className="mb-3 col-2">
-              <h3 className="pb-5">Genre</h3>
-              <Radio.Group value={idGenre} onChange={ChangeGenreID}>
-                <Space direction="vertical">{renderGenre()}</Space>
+      <section className="Filter-TV">
+        <Style>
+          {messageContext}
+          <div className="mt-5 container">
+            <h1 className="pt-5 ">
+              <span>{formattedName}</span> TV & Series
+            </h1>
+            <h1 className=" pb-5 ">
+              Filter by: <span>{genreNames()}</span>
+            </h1>
+
+            <div className="flex " style={{ justifyContent: "center" }}>
+              <Radio.Group
+                className="mb-3"
+                value={sortParams}
+                onChange={ChangeSort}
+                size="large"
+              >
+                <Radio.Button value="name.desc">All</Radio.Button>
+                <Radio.Button value="vote_average.desc"> Vote</Radio.Button>
+                <Radio.Button value="popularity.desc">Popular</Radio.Button>
+                <Radio.Button value="first_air_date.desc">
+                  On Air Series
+                </Radio.Button>
               </Radio.Group>
             </div>
-            <div className="col-10">
-              <Card dataAPI={data} mediaType="tv" />
+            <div className="flex">
+              <div className="all-genre mb-3 col-2">
+                <Radio.Group
+                  size="large"
+                  value={idGenre}
+                  onChange={ChangeGenreID}
+                >
+                  <Space direction="vertical">
+                    <Radio.Button value="all"> All</Radio.Button>
+                    {renderGenre()}
+                  </Space>
+                </Radio.Group>
+              </div>
+              <div className="col-10">
+                {loading ? <Loading /> : <Card dataAPI={data} mediaType="tv" />}
+              </div>
             </div>
+            <Pagination
+              onChange={onPageChange}
+              Current={currentPage.page}
+              total={currentPage.total_pages}
+              style={{ colorText: "#FFF" }}
+            />
           </div>
-          <Pagination
-            onChange={onPageChange}
-            Current={currentPage.page}
-            total={currentPage.total_pages}
-            style={{ colorText: "#FFF" }}
-          />
-        </div>
-      </Style>
+        </Style>
+      </section>
       <FloatButton.BackTop />
     </PrimaryLayout>
   );

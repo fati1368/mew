@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { FloatButton } from "antd";
 import ScrollTop from "../../Helpers/ScrollTop";
 import Loading from "../../Components/Loading";
-
 import {
   useParams,
   useNavigate,
@@ -23,7 +22,7 @@ export default function FilterMovie() {
   const [currentPage, setCurrentPage] = useState([]);
   const { sortParams } = useParams();
   const [loading, setLoading] = useState(true);
-  const [idGenre, setIdGenre] = useSearchParams("");
+  const [idGenre, setIdGenre] = useSearchParams("12");
   const [queryPage, setQueryPage] = useSearchParams("1");
   const [messageApi, messageContext] = message.useMessage();
 
@@ -58,7 +57,8 @@ export default function FilterMovie() {
   }
   async function getAPI(page, genre) {
     try {
-      const genreCurrent = genre ? genre : "";
+      const genreCurrent = genre && genre !== "all" ? genre : "";
+
       const resFilter = await API.get(
         `discover/movie?${KeyAPI}&language=en-US&sort_by=${sortParams}&with_genres=${genreCurrent}&page=${
           page ? page : "1"
@@ -80,7 +80,7 @@ export default function FilterMovie() {
   function renderGenre() {
     return genreMovie.map(({ id, name }) => {
       return (
-        <Radio.Button checked	 key={id} value={id}>
+        <Radio.Button checked key={id} value={id}>
           {name}
         </Radio.Button>
       );
@@ -88,17 +88,21 @@ export default function FilterMovie() {
   }
   const ChangeGenreID = (e) => {
     const movieID = e.target.value;
-    setIdGenre(
-      createSearchParams({
-        genres: movieID,
-        page: "1",
-      })
-    );
+    movieID === "all"
+      ? navigate(`/filter/movie/${sortParams}?genres=${movieID}&page=1`)
+      : setIdGenre(
+          createSearchParams({
+            genres: movieID,
+            page: "1",
+          })
+        );
   };
   const ChangeSort = (e) => {
     const sortFilter = e.target.value;
     idGenre.get("genres")
-      ? navigate(`/filter/movie/${sortFilter}?genres${idGenre.get("genres")}`)
+      ? navigate(
+          `/filter/movie/${sortFilter}?genres=${idGenre.get("genres")}&page=1`
+        )
       : navigate(`/filter/movie/${sortFilter}`);
   };
   function onPageChange(e) {
@@ -115,15 +119,33 @@ export default function FilterMovie() {
           })
         );
   }
+  function genreNames() {
+    try {
+      if (idGenre.get("genres")) {
+        const id = Number(idGenre.get("genres"));
+        const genre = genreMovie.find((genre) => genre.id === id);
+        return genre.name;
+      } else {
+        return "All Genre";
+      }
+    } catch (err) {
+      return "All Genre";
+    }
+  }
 
   return (
     <PrimaryLayout>
       <section className="Filter-movie">
         <Style>
+          {messageContext}
           <div className="mt-5 container">
-            <h1 className="pt-5 pb-5 ">
-              Filter <span>{formattedName}</span> Movie
+            <h1 className="pt-5 ">
+              <span>{formattedName}</span> Movie
             </h1>
+            <h1 className=" pb-5 ">
+              Filter by: <span>{genreNames()}</span>
+            </h1>
+
             <div className="flex " style={{ justifyContent: "center" }}>
               <Radio.Group
                 className="mb-3"
@@ -145,9 +167,11 @@ export default function FilterMovie() {
                   size="large"
                   value={idGenre}
                   onChange={ChangeGenreID}
-                  
                 >
-                  <Space direction="vertical">{renderGenre()}</Space>
+                  <Space direction="vertical">
+                    <Radio.Button value="all"> All</Radio.Button>
+                    {renderGenre()}
+                  </Space>
                 </Radio.Group>
               </div>
               <div className="col-10">

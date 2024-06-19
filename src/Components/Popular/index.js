@@ -50,7 +50,7 @@ export default function Popular() {
         subTitleTwo="Movies and Series"
         filterBottom={APIrequest.Common}
         callBack={handlePlacement}
-        link={`/filter/${placement}/popularity.asc`}
+        link={`/filter/${placement}/popularity.desc`}
       />
       {loading ? <Loading /> : <Card dataAPI={data} mediaType={currentProb} />}
     </section>

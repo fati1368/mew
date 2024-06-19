@@ -9,9 +9,9 @@ import { useEffect } from "react";
 export default function CardPerson({ dataAPI }) {
   function renderFarm() {
     return dataAPI.map(
-      ({ id, name, profile_path, media_type, known_for_department, }) => {
+      ({ id, name, profile_path, media_type, known_for_department }) => {
         return (
-          <Link key={id} to="/">
+          <Link key={id} to={`/credit/${id}`}>
             <li className="col ">
               <div className=" containerCard  ">
                 <div
@@ -26,8 +26,6 @@ export default function CardPerson({ dataAPI }) {
                   <div className="inner  ">
                     <div className="info ">
                       <h4>{name}</h4>
-                      <p className="title">Media Type:</p>
-                      <p> {media_type}</p>
                       <p className="title">Department:</p>
                       <p>{known_for_department}</p>
                     </div>
