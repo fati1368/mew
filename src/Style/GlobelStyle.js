@@ -270,6 +270,12 @@ const GlobalStyle = createGlobalStyle`
     }
 
        }
+
+       .ant-message-custom-content{
+       span{
+       color: ${palette.primaryColor} ;
+
+       }}
    @media (max-width: 1200px) {
     .container {
     width: 90%;

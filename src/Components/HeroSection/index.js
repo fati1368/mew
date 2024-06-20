@@ -23,7 +23,7 @@ export default function HeroSection() {
               marginRight: "10px",
               borderColor: palette.thirdColor,
             }}
-            href="/filter/movie/popularity.asc"
+            href="/filter/movie/popularity.desc"
           >
             Movies
           </Button>
@@ -36,7 +36,7 @@ export default function HeroSection() {
               color: palette.fontColor,
               borderColor: palette.thirdColor,
             }}
-            href="/filter/tv/popularity.asc"
+            href="/filter/tv/popularity.desc"
           >
             Series
           </Button>
