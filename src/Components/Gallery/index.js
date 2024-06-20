@@ -6,7 +6,7 @@ import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import { Link, useParams } from "react-router-dom";
 import SRCimgSlid from "../../Helpers/SRCimgSlid";
-export default function Gallery({currentData}) {
+export default function Gallery({ currentData }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -41,14 +41,18 @@ export default function Gallery({currentData}) {
   }
   return (
     <div className="gallery col-8">
-      <Image.PreviewGroup
-        preview={{
-          onChange: (current, prev) =>
-            console.log(`current index: ${current}, prev index: ${prev}`),
-        }}
-      >
-        {renderImage()}
-      </Image.PreviewGroup>
+      {data === null ? (
+        ""
+      ) : (
+        <Image.PreviewGroup
+          preview={{
+            onChange: (current, prev) =>
+              console.log(`current index: ${current}, prev index: ${prev}`),
+          }}
+        >
+          {renderImage()}
+        </Image.PreviewGroup>
+      )}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import SRCimgSlid from "../../Helpers/SRCimgSlid";
 import SRCimg from "../../Helpers/SRCimg";
 import Style from "./style";
 
-export default function PosterPic({ poster ,currentData }) {
+export default function PosterPic({ poster, currentData }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,12 +32,16 @@ export default function PosterPic({ poster ,currentData }) {
 
   return (
     <Style>
-      <div className="col-5">
-        <h2 className="title">More </h2>
-        <Image.PreviewGroup items={renderImage()}>
-          <Image width={200} src={`${SRCimg}${poster}`} />
-        </Image.PreviewGroup>
-      </div>
+      {data === null ? (
+        ""
+      ) : (
+        <div className="col-5">
+          <h2 className="title">More </h2>
+          <Image.PreviewGroup items={renderImage()}>
+            <Image width={200} src={`${SRCimg}${poster}`} />
+          </Image.PreviewGroup>
+        </div>
+      )}
     </Style>
   );
 }

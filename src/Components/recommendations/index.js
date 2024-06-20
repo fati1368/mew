@@ -35,8 +35,14 @@ export default function Recommendations({ currentData }) {
   return (
     <section className="recommendarions">
       <Style>
-        <h3>Recommendations</h3>
-        <Card dataAPI={convertObjectToArray} mediaType={mediaType} />;
+        {data === null ? (
+          ""
+        ) : (
+          <div>
+            <h3>Recommendations</h3>
+            <Card dataAPI={convertObjectToArray} mediaType={mediaType} />;
+          </div>
+        )}
       </Style>
     </section>
   );

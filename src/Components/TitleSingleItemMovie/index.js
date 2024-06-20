@@ -14,8 +14,10 @@ export default function TitleSingleItemMovie({ data, colorTitle }) {
     production_companies = [],
     production_countries = [],
   } = data;
+
   function renderCompony() {
-    return production_companies.map(({ index, logo_path }) => {
+    const company=production_companies.slice(0,4)
+    return company.map(({ index, logo_path }) => {
       return logo_path === null ? (
         ""
       ) : (

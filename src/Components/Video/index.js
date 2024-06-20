@@ -5,7 +5,7 @@ import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import Style from "./style";
 
-export default function Video({currentData}) {
+export default function Video({ currentData }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function Video({currentData}) {
         setLoading(false);
       });
   }
- 
+
   function renderVideo() {
     return data.map(({ key }) => {
       return (
@@ -45,8 +45,14 @@ export default function Video({currentData}) {
   }
   return (
     <Style>
-      <h3 className="pt-5 pb-5">Trailer</h3>
-      <div className="video ot-5">{renderVideo()}</div>
+      {data == null & data == undefined? (
+        ""
+      ) : (
+        <div>
+          <h3 className="pt-5 pb-5">Trailer</h3>
+          <div className="video ot-5">{renderVideo()}</div>
+        </div>
+      )}
     </Style>
   );
 }
