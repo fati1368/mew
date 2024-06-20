@@ -16,7 +16,7 @@ export default function CardPerson({ dataAPI }) {
               <div className=" containerCard  ">
                 <div
                   className="front "
-                  style={{ backgroundImage: `url(${SRCimg}${profile_path})` }}
+                  style={{ background: `lightblue url(${SRCimg}${profile_path})` , backgroundSize: 'cover' }}
                 >
                   <div className="inner">
                     <p>{name}</p>

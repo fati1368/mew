@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 import Recommendations from "../../Components/Recommendations";
 import API from "../../Helpers/API";
@@ -10,33 +10,41 @@ import Gallery from "../../Components/Gallery";
 import PosterPic from "../../Components/PosterPic";
 import { palette } from "../../Style/Theme";
 import TitleSingleItemTV from "../../Components/TitleSingleItemTV";
-import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
-import { FloatButton } from "antd";
+import { FloatButton, message } from "antd";
 import ScrollTop from "../../Helpers/ScrollTop";
+import Loading from "../../Components/Loading";
+import NotFoundSingleMovie from "../../Components/NotFound";
 
 export default function SingleItemTV() {
   const { id } = useParams();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [writerFilter, setWriterFilter] = useState([]);
   const [directorFilter, setDirectorFilter] = useState([]);
-
+  const [messageApi, messageContext] = message.useMessage();
+  const navigate = useNavigate();
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "please try again later",
+    });
+  };
   useEffect(() => {
     getAPI();
     ScrollTop();
-    setLoading(true);
   }, [id]);
-  function getAPI() {
-    API.get(`tv/${id}?${KeyAPI}`)
-      .then(function (res) {
-        setData(res.data);
-        setLoading(false);
-      })
-      .catch(function (err) {
-        console.log(err);
-        setLoading(false);
-      });
+  async function getAPI() {
+    try {
+      const res = await API.get(`tv/${id}?${KeyAPI}`);
+      setData(res.data);
+      setLoading(false);
+      console.log(data, "fffffff");
+    } catch (error) {
+      warning();
+      setLoading(false);
+      navigate("/*");
+    }
   }
   const handleWriter = (writerFilter) => {
     setWriterFilter(writerFilter);
@@ -44,12 +52,12 @@ export default function SingleItemTV() {
   const handleDirector = (directorFilter) => {
     setDirectorFilter(directorFilter);
   };
-  return (
-    <PrimaryLayout>
-      {loading === true ? (
-        <h3>Please Waite</h3>
-      ) : (
-        <section>
+  const MyComponent = () => {
+    if (data.backdrop_path == null) {
+      return <NotFoundSingleMovie />;
+    } else {
+      return (
+        <div>
           <DetailMovie
             dateRelease={data.first_air_date}
             data={data}
@@ -72,7 +80,7 @@ export default function SingleItemTV() {
                 <Video currentData="tv" />
               </div>
             </div>
-            <div className="col-3">
+            <div className="Credit col-3">
               <Credit
                 currentData="tv"
                 callBackWriter={handleWriter}
@@ -81,8 +89,20 @@ export default function SingleItemTV() {
             </div>
           </div>
           <Recommendations currentData="tv" />
-        </section>
+        </div>
+      );
+    }
+  };
+
+  return (
+    <PrimaryLayout>
+      {messageContext}
+      {loading === true ? (
+        <Loading />
+      ) : (
+        <section className="single">{MyComponent()}</section>
       )}
+
       <FloatButton.BackTop />
     </PrimaryLayout>
   );

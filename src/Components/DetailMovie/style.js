@@ -78,6 +78,11 @@ const Style = styled.div`
       font-size: 4rem;
       margin: 0;
     }
+      h3{
+      font-weight:900;
+      font-size:4rem;
+        color:#ff8400;
+      }
     .gap {
       gap: 5em;
       padding: 0 10em;
@@ -87,6 +92,11 @@ const Style = styled.div`
       }
       font-weight: 700;
     }
+  }
+  .ant-progress-text {
+    font-size: 5rem !important;
+    font-family: ${type.mainFont};
+    font-weight:900;
   }
 `;
 export default Style;

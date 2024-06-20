@@ -39,7 +39,7 @@ const Style = styled.div`
           flex-direction: column;
           margin-left: 2em;
           justify-content: space-between;
-          height: 350px;
+          height: 500px;
           .title-subtitle {
             .sub-title {
               gap: 3em;
@@ -49,7 +49,7 @@ const Style = styled.div`
               .overview-tagline{
               width:100%;
                 .overview {
-                  padding: 1em 0;
+                  padding: 1em ;
                   backdrop-filter: blur(3px);
                   border: 1px solid rgba(255, 255, 255, 0.1);
                   border-radius: 10px;

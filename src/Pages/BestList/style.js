@@ -23,19 +23,7 @@ const Style = styled.div`
     }
     text-transform: uppercase;
   }
-  .button {
-    .list {
-      span {
-        padding: 2em;
-      }
-    }
-  }
-  .ant-radio-button-wrapper {
-    background-color: ${palette.thirdColor};
-    &:hover {
-      color: ${palette.fontColor};
-    }
-  }
+
   .ant-radio-button-wrapper-checked {
     background-color: ${palette.primaryColor};
     color: ${palette.thirdColor};

@@ -37,6 +37,7 @@ export default function TitleSingleItemTV({ data, colorTitle }) {
     }
   }
   return (
+    <section className="title-single">
     <Style>
       <div className=" bg section-space relative">
         <div className=" relative">
@@ -79,5 +80,6 @@ export default function TitleSingleItemTV({ data, colorTitle }) {
         </div>
       </div>
     </Style>
+    </section>
   );
 }

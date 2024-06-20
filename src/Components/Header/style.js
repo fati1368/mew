@@ -25,5 +25,6 @@ const Style = styled.header`
   .fixed.minHeight {
     min-height: 350px;
   }
+    
 `;
 export default Style;

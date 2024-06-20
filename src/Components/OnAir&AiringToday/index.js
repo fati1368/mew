@@ -47,8 +47,8 @@ export default function OnAirAiringToday() {
       <SectionTitle
         title="TV Series"
         colorTitle={palette.fontColorSection}
-        subTitleOne="MOST Trending MOVIES & Series RIGHT NOW:a"
-        subTitleTwo="WHAT TO WATCH IN THEATERS AND STREAMING"
+        subTitleOne="MOST Trending TV & Series RIGHT NOW"
+        subTitleTwo="WHAT TO WATCH IN STREAMING"
         filterBottom={APIrequest.tv}
         callBack={handlePlacement}
         link={`/bestList/tv/${placement}`}

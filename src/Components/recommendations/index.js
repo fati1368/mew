@@ -33,9 +33,11 @@ export default function Recommendations({ currentData }) {
   const mediaType = currentData === "tv" ? "tv" : "movie";
   console.log(data, "similar");
   return (
-    <Style>
-      <h3>Recommendations</h3>
-      <Card dataAPI={convertObjectToArray} mediaType={mediaType} />;
-    </Style>
+    <section className="recommendarions">
+      <Style>
+        <h3>Recommendations</h3>
+        <Card dataAPI={convertObjectToArray} mediaType={mediaType} />;
+      </Style>
+    </section>
   );
 }

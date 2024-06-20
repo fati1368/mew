@@ -4,8 +4,6 @@ import ScrollTop from "../../Helpers/ScrollTop";
 
 import { Fragment, useEffect, useState, useRef } from "react";
 import {
-  Link,
-  useParams,
   useNavigate,
   useSearchParams,
   createSearchParams,

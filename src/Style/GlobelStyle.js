@@ -203,10 +203,11 @@ const GlobalStyle = createGlobalStyle`
 *::-webkit-scrollbar-thumb:active {
   background-color: #e7c252;
 }
-   .ant-pagination {
+
+  .ant-pagination {
   .ant-pagination-item-active{
   background-color: ${palette.secondaryColor};
-        color: ${palette.primaryColor};
+  color: ${palette.primaryColor};
 
   }
     .ant-pagination-item {
@@ -222,6 +223,53 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
+
+  .button {
+    .list {
+      span {
+        padding: 2em;
+      }
+    }
+  }
+  .ant-radio-button-wrapper {
+    background-color: ${palette.thirdColor};
+    color: ${palette.primaryColor};
+    &:hover {
+      color: ${palette.fontColor};
+    }
+  }
+  .ant-radio-button-wrapper-checked {
+    background-color: ${palette.primaryColor};
+    color: ${palette.thirdColor};
+    border-color: ${palette.thirdColor} !important;
+  }
+    .ant-float-btn-icon {
+    color: ${palette.primaryColor} !important;
+}
+    .ant-pagination-item-link{
+      color: ${palette.thirdColor} !important;
+    &:hover{
+     color: ${palette.secondaryColor} !important;
+    }
+    }
+    .ant-pagination-item-ellipsis{
+     color: ${palette.thirdColor} !important;
+    }
+     .ant-pagination-options{
+     .ant-select-item-option-content{
+      color: ${palette.primaryColor} !important;
+     }
+      .ant-select-selector{
+       color: ${palette.primaryColor} !important;
+       }  
+     }
+       .ant-pagination-item-active{
+    background-color: ${palette.thirdColor} !important;
+    a{
+      color: ${palette.secondaryColor}  !important;
+    }
+
+       }
    @media (max-width: 1200px) {
     .container {
     width: 90%;

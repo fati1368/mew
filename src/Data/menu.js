@@ -6,7 +6,7 @@ export const menuData = [
       {
         key: "1",
         label: "Popular",
-        link: "/filter/movie/popularity.asc",
+        link: "/filter/movie/popularity.desc",
       },
       {
         key: "2",
@@ -32,7 +32,7 @@ export const menuData = [
       {
         key: "1",
         label: "Popular",
-        link: "/filter/tv/popularity.asc",
+        link: "/filter/tv/popularity.desc",
       },
       {
         key: "2",
@@ -70,19 +70,16 @@ export const menuData = [
         key: "1",
         label: "Genre Movie",
         link: "/filter/tv/popularity.desc",
-        
       },
       {
         key: "2",
         label: "Genre TV",
         link: "/filter/movie/popularity.desc",
-        
       },
       {
         key: "3",
         label: "Trend",
         link: "/filter/trend/day/movie",
-        
       },
     ],
   },
@@ -95,7 +92,7 @@ export const footerData = [
       {
         key: "1",
         label: "Popular",
-        link: "/filter/movie/popularity.asc",
+        link: "/filter/movie/popularity.desc",
       },
       {
         key: "2",
@@ -121,7 +118,7 @@ export const footerData = [
       {
         key: "1",
         label: "Popular",
-        link: "/filter/tv/popularity.asc",
+        link: "/filter/tv/popularity.desc",
       },
       {
         key: "2",
@@ -154,19 +151,16 @@ export const footerData = [
         key: "2",
         label: "Genre Movie",
         link: "/filter/tv/popularity.desc",
-        
       },
       {
         key: "3",
         label: "Genre TV",
         link: "/filter/movie/popularity.desc",
-        
       },
       {
         key: "4",
         label: "Trend",
         link: "/filter/trend/day/movie",
-        
       },
     ],
   },

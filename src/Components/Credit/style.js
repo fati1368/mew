@@ -23,5 +23,8 @@ const Style = styled.div`
 
       }
   }
+      .ant-list-item {
+    border-block-end: 1px solid #ffc107;
+}
 `;
 export default Style;

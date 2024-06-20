@@ -38,9 +38,9 @@ export function DetailMovie({
     vote_average,
   } = data;
   const conicColors = {
-    "0%": "#87d068",
-    "50%": "#ffe58f",
-    "100%": "#ffccc7",
+    "0%": "#4cff00",
+    "50%": "#ffc107",
+    "100%": "#ffc107",
   };
   useEffect(() => {
     getAPI();
@@ -154,7 +154,7 @@ export function DetailMovie({
                   {overviewCheck()}
 
                   <div>
-                    <div className="flex space-between col-12 gap">
+                    <div className="flex space-between col-12 gap mt-5">
                       {renderDirector()}
                       {renderWriter()}
                     </div>

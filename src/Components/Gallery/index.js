@@ -40,7 +40,7 @@ export default function Gallery({currentData}) {
     });
   }
   return (
-    <div className="col-8">
+    <div className="gallery col-8">
       <Image.PreviewGroup
         preview={{
           onChange: (current, prev) =>

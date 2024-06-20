@@ -58,7 +58,7 @@ export default function Search() {
             results.poster_path !== null || results.profile_path !== null
         )
       );
-      console.log(data , "correct")
+      console.log(data, "correct");
       setFilter(
         res.data.results.filter(
           (results) =>
@@ -67,6 +67,7 @@ export default function Search() {
         )
       );
       setCurrentPage(res.data);
+      setLoading(false);
     } catch (error) {
       warning();
       setLoading(false);
@@ -75,7 +76,7 @@ export default function Search() {
 
   const onType = (e) => {
     const currentName = e.target.value.trim();
-    if (currentName.length > 3) {
+    if (currentName.length > 2) {
       setQueryName(createSearchParams({ q: currentName, page: "1" }));
       setTimeout(() => {
         getAPI(currentName);
@@ -87,7 +88,7 @@ export default function Search() {
   function onEnter(e) {
     if (e.key === "Enter") {
       const queryName = e.target.value.trim();
-      if (queryName.length > 1) {
+      if (queryName.length > 2) {
         navigate(`/search/${typeParams}?q=${queryName}&page=1`);
       } else {
         navigate(`/search/${typeParams}`);
@@ -139,6 +140,7 @@ export default function Search() {
                   className="mb-3"
                   value={typeParams}
                   onChange={typeChange}
+                  size="large"
                 >
                   <Radio.Button value="movie">Movies</Radio.Button>
                   <Radio.Button value="tv">TV Shows</Radio.Button>
@@ -146,22 +148,29 @@ export default function Search() {
                   <Radio.Button value="multi">ALL</Radio.Button>
                 </Radio.Group>
               </div>
-              {typeParams === "multi" ? (
-                <Card dataAPI={filter} mediaType="" />
+              {loading ? (
+                <Loading />
               ) : (
-                ""
+                <div>
+                  {" "}
+                  {typeParams === "multi" ? (
+                    <Card dataAPI={filter} mediaType="" />
+                  ) : (
+                    ""
+                  )}
+                  {typeParams === "tv" ? (
+                    <Card dataAPI={data} mediaType="tv" />
+                  ) : (
+                    ""
+                  )}
+                  {typeParams === "movie" ? (
+                    <Card dataAPI={data} mediaType="movie" />
+                  ) : (
+                    ""
+                  )}
+                  {typeParams === "person" ? <CardPerson dataAPI={data} /> : ""}
+                </div>
               )}
-              {typeParams === "tv" ? (
-                <Card dataAPI={data} mediaType="tv" />
-              ) : (
-                ""
-              )}
-              {typeParams === "movie" ? (
-                <Card dataAPI={data} mediaType="movie" />
-              ) : (
-                ""
-              )}
-              {typeParams === "person" ? <CardPerson dataAPI={data} /> : ""}
               <Pagination
                 onChange={onPageChange}
                 Current={currentPage.page}

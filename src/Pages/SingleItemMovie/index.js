@@ -1,5 +1,5 @@
-import { useState, useEffect, Fragment   } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useState, useEffect, Fragment } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import PrimaryLayout from "../../Components/Layout/PrimaryLayout";
 import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
@@ -9,13 +9,12 @@ import Gallery from "../../Components/Gallery";
 import PosterPic from "../../Components/PosterPic";
 import { palette } from "../../Style/Theme";
 import TitleSingleItemMovie from "../../Components/TitleSingleItemMovie";
-import ReactPlayer from "react-player";
 import Video from "../../Components/Video";
 import Recommendations from "../../Components/Recommendations";
-import { useNavigate } from "react-router-dom";
-import { FloatButton } from "antd";
+import { FloatButton, message } from "antd";
 import ScrollTop from "../../Helpers/ScrollTop";
-
+import Loading from "../../Components/Loading";
+import NotFoundSingleMovie from "../../Components/NotFound";
 
 export default function SingleItemMovie() {
   const { id } = useParams();
@@ -23,26 +22,31 @@ export default function SingleItemMovie() {
   const [data, setData] = useState({});
   const [writerFilter, setWriterFilter] = useState([]);
   const [directorFilter, setDirectorFilter] = useState([]);
-  const location = useLocation();
-
+  const [messageApi, messageContext] = message.useMessage();
   const navigate = useNavigate();
-  API.initialize(navigate);
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "please try again later",
+    });
+  };
 
   useEffect(() => {
     getAPI();
-    setLoading(true);
+    setLoading();
     ScrollTop();
-  }, [id, location]);
-  function getAPI() {
-    API.get(`movie/${id}?${KeyAPI}`)
-      .then(function (res) {
-        setData(res.data);
-        setLoading(false);
-      })
-      .catch(function (err) {
-        console.log(err);
-        setLoading(false);
-      });
+  }, [id]);
+
+  async function getAPI() {
+    try {
+      const res = await API.get(`movie/${id}?${KeyAPI}`);
+      setData(res.data);
+      setLoading(false);
+    } catch (error) {
+      warning();
+      setLoading(false);
+      navigate("/*");
+    }
   }
   const handleWriter = (writerFilter) => {
     setWriterFilter(writerFilter);
@@ -50,12 +54,13 @@ export default function SingleItemMovie() {
   const handleDirector = (directorFilter) => {
     setDirectorFilter(directorFilter);
   };
-  return (
-    <PrimaryLayout>
-      {loading === true ? (
-        <h3>Please Waite</h3>
-      ) : (
-        <section>
+
+  const MyComponent = () => {
+    if (data.backdrop_path == null) {
+      return <NotFoundSingleMovie />;
+    } else {
+      return (
+        <section className="movie">
           <DetailMovie
             dateRelease={data.release_date}
             data={data}
@@ -88,9 +93,15 @@ export default function SingleItemMovie() {
           </div>
           <Recommendations currentData="movie" />
         </section>
-      )}
-            <FloatButton.BackTop />
+      );
+    }
+  };
 
+  return (
+    <PrimaryLayout>
+      {messageContext}
+      {loading === true ? <Loading /> : MyComponent()}
+      <FloatButton.BackTop />
     </PrimaryLayout>
   );
 }

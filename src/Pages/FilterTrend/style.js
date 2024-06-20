@@ -23,13 +23,10 @@ const Style = styled.div`
     align-items: center;
   }
   .ant-radio-button-wrapper {
-    background-color: ${palette.thirdColor};
     span{
       padding:2em;
     }
-    &:hover {
-      color: ${palette.fontColor};
-    }
+  
   }
   .ant-radio-button-wrapper-checked {
     background-color: ${palette.primaryColor};

@@ -12,12 +12,7 @@ const Style = styled.div`
     }
   }
     
-  .ant-radio-button-wrapper {
-    background-color: ${palette.thirdColor};
-    &:hover {
-      color: ${palette.fontColor};
-    }
-  }
+
   .ant-radio-button-wrapper-checked {
     background-color: ${palette.primaryColor};
     color: ${palette.thirdColor};

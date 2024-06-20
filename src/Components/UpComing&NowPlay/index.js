@@ -47,8 +47,8 @@ export default function UpComingNowPlay() {
       <SectionTitle
         title="Movie"
         colorTitle={palette.fontColor}
-        subTitleOne="MOST Trending MOVIES & Series RIGHT NOW:a"
-        subTitleTwo="WHAT TO WATCH IN THEATERS AND STREAMING"
+        subTitleOne="MOST Trending MOVIES RIGHT NOW"
+        subTitleTwo="WHAT TO WATCH IN STREAMING"
         filterBottom={APIrequest.movie}
         callBack={handlePlacement}
         link={`/bestList/movie/${placement}`}

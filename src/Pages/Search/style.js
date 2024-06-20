@@ -43,25 +43,25 @@ justify-content:center;
     }
     text-transform: uppercase;
   }
-  .button {
-    .list {
-      span {
-        padding: 2em;
-      }
-    }
-  }
-  .ant-radio-button-wrapper {
-    background-color: ${palette.thirdColor};
-    &:hover {
-      color: ${palette.fontColor};
-    }
-  }
+
+
   .ant-radio-button-wrapper-checked {
     background-color: ${palette.primaryColor};
     color: ${palette.thirdColor};
     border-color: ${palette.thirdColor} !important;
   }
+.ant-btn {
+    background-color: ${palette.thirdColor};
+          color: ${palette.primaryColor};
 
+&:hover{
+    background-color: ${palette.primaryColor} !important;
+        color: ${palette.thirdColor} !important;
+    border-color: ${palette.thirdColor} !important;
+
+
+}
+}
    
   
   

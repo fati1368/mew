@@ -11,13 +11,12 @@ root.render(
   <ConfigProvider
     theme={{
       token: {
-        // colorPrimary: `${palette.secondaryColor}`,
-        // colorBgBase: `${palette.secondaryColor}`,
-
-         colorFillSecondary: `${palette.thirdColor}`,
-        // color: `${palette.primaryColor}`,
-         colorText: `${palette.primaryColor}`,
-         itemInputBg: `${palette.primaryColor}`,
+        colorPrimary: `${palette.secondaryColor}`,
+        colorBgBase: `${palette.secondaryColor}`,
+        colorFillSecondary: `${palette.thirdColor}`,
+        color: `${palette.secondaryColor}`,
+        colorText: `${palette.secondaryColor}`,
+        itemInputBg: `${palette.primaryColor}`,
       },
     }}
   >
