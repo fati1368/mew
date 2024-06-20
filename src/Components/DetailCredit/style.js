@@ -6,11 +6,9 @@ const Style = styled.div`
     height: 100vh;
     border-bottom: 1px solid;
     box-shadow: 0px 0px 30px rgba(277, 277, 277, 0.3);
-
     background-position: left top;
     background-size: cover;
     background-repeat: no-repeat;
-
     .transparent {
       background-color: rgba(0, 0, 0, 0.5);
       width: 100%;
@@ -25,7 +23,6 @@ const Style = styled.div`
       .poster-information {
         height: 100vh;
         align-items: center;
-
         .poster {
           img {
             // width: auto;
@@ -43,39 +40,29 @@ const Style = styled.div`
           margin-left: 2em;
           justify-content: space-between;
           height: 350px;
-.title-subtitle{
-width:max-content;
-.sub-title {
-  gap: 3em;
-  font-size: 1.5rem;
-  align-content: flex-start;
-}
-}
-          .vote {
-            padding: 1em;
-            gap: 0.5em;
-            align-items: center;
-          }
-          .overview {
-            padding: 1em;
-            backdrop-filter: blur(3px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            font-siz: 2rem;
-            margin-left: 1em;
-            line-height: 1.5;
-            .tagline {
-              text-align: center;
-              font-size: 2.5rem;
-              font-weight: 900;
-              color: ${palette.fontColorSection};
+          .title-subtitle {
+            .sub-title {
+              gap: 3em;
+              font-size: 1.5rem;
+              align-content: flex-start;
+            }
+              .overview-tagline{
+              width:100%;
+                .overview {
+                  padding: 1em 0;
+                  backdrop-filter: blur(3px);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  border-radius: 10px;
+                  font-siz: 2rem;
+                  line-height: 1.5;
+                  }
             }
           }
         }
       }
     }
     h1 {
-      font-size: 4rem;
+      font-size: 6rem;
       margin: 0;
     }
     .gap {

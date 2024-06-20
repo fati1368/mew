@@ -45,7 +45,7 @@ export default function SingleItemCredit () {
             birthday={data.birthday}
             deathday={data.deathday}
             data={data}
-            background="/assets/Image/peakpx.jpg"
+            background="/assets/Image/peakpx.png"
           />
 
           <CombinedCredits />

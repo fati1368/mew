@@ -8,11 +8,11 @@ import {
   useSearchParams,
   createSearchParams,
   useNavigate,
+  useParams,
 } from "react-router-dom";
 import API from "../../Helpers/API";
 import KeyAPI from "../../Helpers/KeyAPI";
 import React from "react";
-import { palette } from "../../Style/Theme";
 import Style from "./style";
 import { Button, Radio, Pagination, List, Input } from "antd";
 import Card from "../../Components/Layout/Card";
@@ -23,15 +23,13 @@ import { message } from "antd";
 export default function Search() {
   const [queryName, setQueryName] = useSearchParams();
   const [queryPage, setQueryPage] = useSearchParams();
-  const [dataNull, setDataNull] = useState([]);
-  const [dataMovies, setDataMovies] = useState([]);
-  const [dataPerson, setDataPerson] = useState([]);
+  const [currentPage, setCurrentPage] = useState([]);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const [currentData, setCurrentData] = useState([]);
-  const [placement, SetPlacement] = useSearchParams("multi");
+  const { typeParams } = useParams();
   const [messageApi, messageContext] = message.useMessage();
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState(true);
 
   const warning = () => {
     messageApi.open({
@@ -41,165 +39,139 @@ export default function Search() {
   };
   useEffect(
     function () {
-      getAPI(
-        queryName.get("name") && queryName.get("name") !== "",
-        queryPage.get("page"),
-        ScrollTop()
-      );
+      getAPI(queryName.get("q"), queryPage.get("page"));
+      ScrollTop();
     },
-    [queryPage, placement]
-    // [pageSearchParams.get("page")]
+    [queryPage, typeParams, queryName]
   );
-  async function getAPI(queryName, page = 1) {
+  async function getAPI(name, page) {
+    const currentName = name ? name : "";
+    const currentPage = page ? page : "1";
+    console.log(page, "faaaat");
     try {
       const res = await API.get(
-        `search/${
-          placement ? placement : "multi"
-        }?${KeyAPI}&query=${queryName}&include_adult=false&language=en-US&pages=${page}`
+        `search/${typeParams}?${KeyAPI}&query=${currentName}&page=${currentPage}`
       );
-      setData(res.data);
-      console.log(data, "1");
-      sessionStorage.setItem("data", JSON.stringify(data));
-      const dataJson = sessionStorage.getItem("data");
-      const resultData = JSON.parse(dataJson);
-      console.log(resultData, "1jason");
-
-      const dataCurrent = data == null || data == undefined ? resultData : data;
-      setDataNull(
-        dataCurrent.results.filter(
+      setData(
+        res.data.results.filter(
           (results) =>
             results.poster_path !== null || results.profile_path !== null
         )
       );
-      console.log(dataNull, "2n");
-
-      sessionStorage.setItem("null", JSON.stringify(dataNull));
-      const nullJason = sessionStorage.getItem("null");
-      const resultNull = JSON.parse(nullJason);
-      console.log(resultNull, "2jason");
-
-      const nullCurrent =
-        dataNull == null || dataNull == undefined ? dataNull : resultNull;
-
-      setDataMovies(
-        nullCurrent.filter(
-          (nullCurrent) =>
-            nullCurrent.media_type === "movie" ||
-            nullCurrent.media_type === "tv"
+      console.log(data , "correct")
+      setFilter(
+        res.data.results.filter(
+          (results) =>
+            (results.media_type === "tv" && results.poster_path !== null) ||
+            (results.media_type === "movie" && results.poster_path !== null)
         )
       );
-
-      setDataPerson(
-        nullCurrent.filter((nullCurrent) => nullCurrent.media_type === "person")
-      );
+      setCurrentPage(res.data);
     } catch (error) {
-      console.error("Error data:", error);
       warning();
       setLoading(false);
     }
   }
 
   const onType = (e) => {
-    const queryName = e.target.value.trim();
-    if (queryName.length > 2) {
-      setQueryName(createSearchParams({ name: queryName, page: "1" }));
+    const currentName = e.target.value.trim();
+    if (currentName.length > 3) {
+      setQueryName(createSearchParams({ q: currentName, page: "1" }));
       setTimeout(() => {
-        getAPI(queryName);
-      }, 1000);
+        getAPI(currentName);
+      }, 2000);
     }
+    console.log(queryName.get("q"), "fati pro");
   };
 
   function onEnter(e) {
     if (e.key === "Enter") {
       const queryName = e.target.value.trim();
-      if (queryName.length > 2) {
-        navigate(`/search?name=${queryName}&page=1`);
+      if (queryName.length > 1) {
+        navigate(`/search/${typeParams}?q=${queryName}&page=1`);
+      } else {
+        navigate(`/search/${typeParams}`);
       }
     }
   }
-  function onPageChange(page) {
-    navigate(
-      `/search?name=${queryName.get("name")}&page=${page}&${placement.get(
-        "place"
-      )}`
-    );
-  }
-  const placementChange = (e) => {
-    const selectedPlacement = e.target.value;
-    SetPlacement(
+  const typeChange = (e) => {
+    const selectedType = e.target.value;
+    navigate(`/search/${selectedType}?q=${queryName.get("q")}&page=1`);
+  };
+  function onPageChange(e) {
+    setQueryPage(
       createSearchParams({
-        name: queryName.get("name"),
-        page: "1",
-        place: selectedPlacement,
+        q: queryName.get("q"),
+        page: e,
       })
     );
-  };
-
+  }
   return (
     <PrimaryLayout>
-      <Style>
-        <div className="container">
-          <h1 className=" pb-5 pt-5"> Search</h1>
-          <div className="search">
-            <div className="input flex pb-5 pt-5">
-              <input
-                onKeyDown={onEnter}
-                onChange={onType}
-                placeholder="input search text"
-                type="text"
+      <section className="search">
+        {messageContext}
+        <Style>
+          <div className="container">
+            <h1 className=" pb-5 pt-5">
+              {" "}
+              Search: <span> {queryName.get("q")}</span>
+            </h1>
+            <div className="search">
+              <div className="input flex pb-5 pt-5">
+                <input
+                  onKeyDown={onEnter}
+                  onChange={onType}
+                  placeholder="input search text"
+                />
+                <Button
+                  size="large"
+                  onClick={() => {
+                    navigate(
+                      `/search/${typeParams}?q=${queryName.get("q")}&page=1`
+                    );
+                  }}
+                >
+                  Search
+                </Button>
+              </div>
+              <div className="button flex  ">
+                <Radio.Group
+                  className="mb-3"
+                  value={typeParams}
+                  onChange={typeChange}
+                >
+                  <Radio.Button value="movie">Movies</Radio.Button>
+                  <Radio.Button value="tv">TV Shows</Radio.Button>
+                  <Radio.Button value="person">People</Radio.Button>
+                  <Radio.Button value="multi">ALL</Radio.Button>
+                </Radio.Group>
+              </div>
+              {typeParams === "multi" ? (
+                <Card dataAPI={filter} mediaType="" />
+              ) : (
+                ""
+              )}
+              {typeParams === "tv" ? (
+                <Card dataAPI={data} mediaType="tv" />
+              ) : (
+                ""
+              )}
+              {typeParams === "movie" ? (
+                <Card dataAPI={data} mediaType="movie" />
+              ) : (
+                ""
+              )}
+              {typeParams === "person" ? <CardPerson dataAPI={data} /> : ""}
+              <Pagination
+                onChange={onPageChange}
+                Current={currentPage.page}
+                total={currentPage.total_pages}
+                style={{ colorText: "#FFF" }}
               />
-              <Button
-                size="large"
-                onClick={() => {
-                  navigate(`/search?name=${queryName.get("name")}&page=1`);
-                }}
-              >
-                Search
-              </Button>
             </div>
-            <div className="button flex  ">
-              <Radio.Group
-                className="mb-3"
-                value={placement}
-                onChange={placementChange}
-              >
-                <Radio.Button value="movie">Movies</Radio.Button>
-                <Radio.Button value="tv">TV Shows</Radio.Button>
-                <Radio.Button value="person">People</Radio.Button>
-                <Radio.Button value="company">Companies</Radio.Button>
-                <Radio.Button value="collection">Collections</Radio.Button>
-                <Radio.Button value="multi">ALL</Radio.Button>
-              </Radio.Group>
-            </div>
-            {/* <ResultSearch dataMovie={dataMovies} dataPerson={dataPerson}/> */}
-            <Card dataAPI={dataMovies} mediaType="" />
-            <CardPerson dataAPI={dataPerson} />
-            {placement === "collection" ? (
-              <CardCollection dataAPI={data.results} />
-            ) : (
-              ""
-            )}
-            {placement === "company" ? (
-              <List
-                size="large"
-                bordered
-                locale
-                dataSource={data.results}
-                renderItem={(item) => <List.Item>{item}</List.Item>}
-              />
-            ) : (
-              ""
-            )}
-
-            <Pagination
-              onChange={onPageChange}
-              Current={data.page}
-              total={data.total_pages}
-              style={{ colorText: "#FFF" }}
-            />
           </div>
-        </div>
-      </Style>
+        </Style>
+      </section>
       <FloatButton.BackTop />
     </PrimaryLayout>
   );

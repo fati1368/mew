@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <PopularPerson />,
   },
   {
-    path: "/search",
+    path: "/search/:typeParams",
     element: <Search />,
   },
   {

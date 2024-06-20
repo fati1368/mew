@@ -48,7 +48,7 @@ export default function DetailCredit({
   const biographyCheck = () => {
     if (biography && biography.length > 0) {
       return (
-        <div className="overview-tagline">
+        <div className="pt-5 overview-tagline">
           <h4>Biography:</h4>
           <div className="overview">
             <p>{biography}</p>
@@ -59,12 +59,14 @@ export default function DetailCredit({
   };
 
   return (
-    <section className="hero-section">
+    <section className=" hero-section">
       <Style>
+
         <div
           className="hero-image relative"
           style={{
-            backgroundImage: `url(${background})`,
+            backgroundImage: `url(${background})`
+            ,
           }}
         >
           <div className="transparent absolute"></div>
@@ -91,8 +93,11 @@ export default function DetailCredit({
                       <p>Birth Day: {birthDay ? birthDay : "-"}</p>
                       <p>Death Day: {deathDay ? deathDay : "-"} </p>
                     </div>
-                  </div>
+                    <div>
+
                   {biographyCheck()}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

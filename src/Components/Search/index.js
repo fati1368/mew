@@ -33,6 +33,8 @@ export default function Search({ callBack }) {
 
   async function handleSearch(e) {
     const query = e.target.value.trim();
+    setInputValue(query);
+    console.log(inputValue)
     if (query.length >= 3) {
       try {
         const res =await API.get(`search/multi?${KeyAPI}&query=${query}`);
@@ -45,11 +47,10 @@ export default function Search({ callBack }) {
       setData([]);
       setShowResults(false);
     }
-    setInputValue(query);
   }
   function onEnter(e) {
     if (e.key === "Enter") {
-      navigate(`/search?name=${e.target.value}&page=1`);
+      navigate(`/search/multi?q=${e.target.value}&page=1`);
     }
   }
   function renderResult() {
@@ -75,7 +76,7 @@ export default function Search({ callBack }) {
           >
             <Link
               className=" iconSearch"
-              to={`/search?name=${inputValue}&page=1`}
+              to={`/search/multi?q=${inputValue}&page=1`}
             >
               <IConSearch />
             </Link>
